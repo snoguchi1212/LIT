@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('family_name_kana');
             $table->string('last_name_kana');
+            $table->tinyInteger('sex')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedTinyInteger('grade');
-            $table->unsignedTinyInteger('ls_choice');
+            $table->unsignedTinyInteger('ls_choice')->nullable;
             $table->string('school_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
