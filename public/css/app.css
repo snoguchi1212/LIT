@@ -823,6 +823,15 @@ select {
 .w-8 {
   width: 2rem;
 }
+.w-28 {
+  width: 7rem;
+}
+.w-16 {
+  width: 4rem;
+}
+.w-12 {
+  width: 3rem;
+}
 .max-w-7xl {
   max-width: 80rem;
 }

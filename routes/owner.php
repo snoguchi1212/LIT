@@ -9,6 +9,7 @@ use App\Http\Controllers\Owner\Auth\NewPasswordController;
 use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
+use App\Http\Controllers\Owner\StudentsController;
 
 
 /*
@@ -29,6 +30,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owner'])->name('dashboard');
+
+Route::resource('students', StudentsController::class)
+    ->middleware('auth:owner');
 
 Route::middleware('guest:owner')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
