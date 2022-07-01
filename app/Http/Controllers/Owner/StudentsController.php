@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class StudentsController extends Controller
 {
@@ -35,7 +37,30 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'grade' => ['required', 'integer', 'digits_between:1,7'],
+            'family_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'family_name_kana' => ['required', 'string', 'max:255'],
+            'last_name_kana' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:students'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+
+        $user = Student::create([
+            'grade' => $request->grade,
+            'family_name' => $request->family_name,
+            'last_name' => $request->last_name,
+            'family_name_kana' => $request->family_name_kana,
+            'last_name_kana' => $request->last_name_kana,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()
+        ->route('owner.students.index')
+        ->with('message', '新規生徒を登録しました。');
     }
 
     /**
