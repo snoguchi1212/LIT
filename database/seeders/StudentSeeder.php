@@ -20,9 +20,9 @@ class StudentSeeder extends Seeder
         [
             [
                 'family_name' => '山田',
-                'last_name' => '太郎',
+                'first_name' => '太郎',
                 'family_name_kana' => 'ヤマダ',
-                'last_name_kana' => 'タロウ',
+                'first_name_kana' => 'タロウ',
                 'sex' => 0,
                 'email' => 'student1@test.com',
                 'password' => Hash::make('password123'),
@@ -33,9 +33,9 @@ class StudentSeeder extends Seeder
             ],
             [
                 'family_name' => '鈴木',
-                'last_name' => '花子',
+                'first_name' => '花子',
                 'family_name_kana' => 'スズキ',
-                'last_name_kana' => 'ハナコ',
+                'first_name_kana' => 'ハナコ',
                 'sex' => 1,
                 'email' => 'student2@test.com',
                 'password' => Hash::make('password123'),
@@ -46,9 +46,9 @@ class StudentSeeder extends Seeder
             ],
             [
                 'family_name' => '佐藤',
-                'last_name' => '二郎',
+                'first_name' => '二郎',
                 'family_name_kana' => 'サトウ',
-                'last_name_kana' => 'ジロウ',
+                'first_name_kana' => 'ジロウ',
                 'sex' => 0,
                 'email' => 'student3@test.com',
                 'password' => Hash::make('password123'),
@@ -59,9 +59,9 @@ class StudentSeeder extends Seeder
             ],
             [
                 'family_name' => '高橋',
-                'last_name' => '良子',
+                'first_name' => '良子',
                 'family_name_kana' => 'タカハシ',
-                'last_name_kana' => 'リョウコ',
+                'first_name_kana' => 'リョウコ',
                 'sex' => 1,
                 'email' => 'student4@test.com',
                 'password' => Hash::make('password123'),

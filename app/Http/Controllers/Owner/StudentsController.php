@@ -19,7 +19,7 @@ class StudentsController extends Controller
 
     public function index()
     {
-        $e_students = Student::select('family_name', 'last_name', 'family_name_kana', 'last_name_kana', 'grade')->get();
+        $e_students = Student::select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana', 'grade')->get();
 
         return view('owner.students.index', compact('e_students'));
     }
@@ -40,9 +40,9 @@ class StudentsController extends Controller
         $request->validate([
             'grade' => ['required', 'integer', 'digits_between:1,7'],
             'family_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
             'family_name_kana' => ['required', 'string', 'max:255'],
-            'last_name_kana' => ['required', 'string', 'max:255'],
+            'first_name_kana' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:students'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -51,9 +51,9 @@ class StudentsController extends Controller
         $user = Student::create([
             'grade' => $request->grade,
             'family_name' => $request->family_name,
-            'last_name' => $request->last_name,
+            'first_name' => $request->first_name,
             'family_name_kana' => $request->family_name_kana,
-            'last_name_kana' => $request->last_name_kana,
+            'first_name_kana' => $request->first_name_kana,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -83,6 +83,9 @@ class StudentsController extends Controller
     public function edit($id)
     {
         //
+        $student = Student::findOrFail($id);
+
+        return view('owner.students.edit', compact('student'));
     }
 
     /**
@@ -95,6 +98,19 @@ class StudentsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $student = Student::findOrFail($id);
+
+        $student->family_name = $request->family_name;
+        $student->first_name = $request->first_name;
+        $student->family_name_kana = $request->family_name_kana;
+        $student->first_name_kana = $request->first_name_kana;
+        // TODO:パスワードを変更できないようにする
+        $student->password = Hash::make($request->password);
+        $student->save();
+
+        return redirect()
+        ->route('owner.students.index')
+        ->with('message', '生徒情報を更新しました。');
     }
 
     /**

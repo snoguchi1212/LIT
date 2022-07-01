@@ -22,17 +22,18 @@
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">学年</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">名前</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">ナマエ</th></th>
-                                <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
+                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                             </tr>
                             </thead>
                             <tbody>
+                            {{-- #TODO:showメソッドの追加 --}}
                             @foreach ($e_students as $e_student)
                             <tr>
                                 <td class="px-4 py-3">{{ $e_student->grade }}</td>
-                                <td class="px-4 py-3">{{ $e_student->family_name }} {{ $e_student->last_name }}</td>
-                                <td class="px-4 py-3">{{ $e_student->family_name_kana }} {{ $e_student->last_name_kana }}</td>
-                                <td class="w-10 text-center">
-                                <input name="plan" type="radio">
+                                <td class="px-4 py-3">{{ $e_student->family_name }} {{ $e_student->first_name }}</td>
+                                <td class="px-4 py-3">{{ $e_student->family_name_kana }} {{ $e_student->first_name_kana }}</td>
+                                <td class="px-4 py-3">
+                                <button onclick="location.href='{{ route('owner.students.edit', [$e_student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">編集</button>
                                 </td>
                             </tr>
                             @endforeach

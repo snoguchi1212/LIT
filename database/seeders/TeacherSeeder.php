@@ -19,18 +19,18 @@ class TeacherSeeder extends Seeder
         DB::table('teachers')->insert([
             [
                 'family_name' => '講師',
-                'last_name' => '一郎',
+                'first_name' => '一郎',
                 'family_name_kana' => 'コウシ',
-                'last_name_kana' => 'イチロウ',
+                'first_name_kana' => 'イチロウ',
                 'email' => 'teacher1@test.com',
                 'password' => Hash::make('password123'),
                 'created_at' => '2022/06/30 11:11:11',
             ],
             [
                 'family_name' => '講師',
-                'last_name' => '二郎',
+                'first_name' => '二郎',
                 'family_name_kana' => 'コウシ',
-                'last_name_kana' => 'ジロウ',
+                'first_name_kana' => 'ジロウ',
                 'email' => 'teacher2@test.com',
                 'password' => Hash::make('password123'),
                 'created_at' => '2022/06/30 11:11:11',
