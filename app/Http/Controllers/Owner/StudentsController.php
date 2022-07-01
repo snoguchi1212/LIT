@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
@@ -15,17 +17,14 @@ class StudentsController extends Controller
 
     public function index()
     {
-        dd('オーナー一覧です');
+        $e_students = Student::select('family_name', 'last_name', 'family_name_kana', 'last_name_kana', 'grade')->get();
+
+        return view('owner.students.index', compact('e_students'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('owner.students.create');
     }
 
     /**
