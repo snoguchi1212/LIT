@@ -34,6 +34,12 @@ Route::get('/dashboard', function () {
 Route::resource('students', StudentsController::class)
     ->middleware('auth:owner');
 
+Route::prefix('leaved-students')->
+middleware('auth:owner')->group(function(){
+    Route::get('index', [StudentsController::class, 'leavedStudentsIndex'])->name('leaved-students.index');
+    Route::post('destroy/{student}', [StudentsController::class, 'leavedStudentsDestroy'])->name('leaved-students.destroy');
+});
+
 Route::middleware('guest:owner')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');

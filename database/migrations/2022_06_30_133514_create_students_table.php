@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('school_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

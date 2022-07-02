@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            生徒管理
+            退塾生徒一覧
         </h2>
     </x-slot>
 
@@ -13,34 +13,32 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                                <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('owner.students.create') }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">新規登録する</button>
-                                </div>
-                        <table class="table-auto w-full text-left whitespace-no-wrap">
+                            <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
                             <tr>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">学年</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">名前</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">ナマエ</th>
+                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">削除日</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                             </tr>
                             </thead>
                             <tbody>
                             {{-- #TODO:showメソッドの追加 --}}
-                            @foreach ($e_students as $e_student)
+                            @foreach ($leavedStudents as $e_student)
                             <tr>
                                 <td class="px-4 py-3">{{ $e_student->grade }}</td>
                                 <td class="px-4 py-3">{{ $e_student->family_name }} {{ $e_student->first_name }}</td>
                                 <td class="px-4 py-3">{{ $e_student->family_name_kana }} {{ $e_student->first_name_kana }}</td>
+                                <td class="px-4 py-3">{{ $e_student->deleted_at->diffForHumans() }}</td>
                                 <td class="px-4 py-3">
-                                <button onclick="location.href='{{ route('owner.students.edit', [$e_student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">編集</button>
+                                <button onclick="location.href='{{ route('owner.students.edit', [$e_student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
                                 </td>
-                                <form id="delete_{{ $e_student->id }}" method="post" action="{{ route('owner.students.destroy', [$e_student->id]) }}">
+                                <form id="delete_{{ $e_student->id }}" method="post" action="{{ route('owner.leaved-students.destroy', [$e_student->id]) }}">
                                     @csrf
-                                    @method("delete")
                                     <td class="px-4 py-3">
-                                        <a href="#" data-id="{{ $e_student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">削除</a>
+                                        <a href="#" data-id="{{ $e_student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
                                     </td>
                                 </form>
                             </tr>

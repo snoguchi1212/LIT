@@ -60,7 +60,9 @@ class StudentsController extends Controller
 
         return redirect()
         ->route('owner.students.index')
-        ->with('message', '新規生徒を登録しました。');
+        ->with(['message', '新規生徒を登録しました。',
+        'status' => 'info',
+    ]);
     }
 
     /**
@@ -110,7 +112,10 @@ class StudentsController extends Controller
 
         return redirect()
         ->route('owner.students.index')
-        ->with('message', '生徒情報を更新しました。');
+        ->with([
+            'message' => '生徒情報を更新しました。',
+            'status' => 'info',
+        ]);
     }
 
     /**
@@ -121,6 +126,29 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Student::findOrFail($id)->delete();
+
+        return redirect()
+        ->route('owner.students.index')
+        ->with([
+            'message' => '生徒情報を削除しました。',
+            'status' => 'alert',
+        ]);
+    }
+
+    public function leavedStudentsIndex()
+    {
+        $leavedStudents = Student::onlyTrashed()->select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana', 'grade', 'deleted_at')->get();
+
+        return view('owner.leaved-students', compact('leavedStudents'));
+    }
+
+    public function leavedStudentsDestroy($id)
+    {
+        Student::onlyTrashed()->findOrFail($id)->forceDelete();
+
+        return redirect()
+        ->route('owner.leaved-students.index');
+
     }
 }

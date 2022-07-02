@@ -17,8 +17,11 @@
                     <x-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('owner.students.index')" :active="request()->routeIs('owner.owners.index')">
+                    <x-nav-link :href="route('owner.students.index')" :active="request()->routeIs('owner.students.index')">
                         生徒管理
+                    </x-nav-link>
+                    <x-nav-link :href="route('owner.leaved-students.index')" :active="request()->routeIs('owner.leaved-students.index')">
+                        退塾生徒一覧
                     </x-nav-link>
                 </div>
             </div>
