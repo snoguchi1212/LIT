@@ -1,4 +1,6 @@
 <x-app-layout>
+    {{-- TODO:sidebarの実装 --}}
+    {{-- <x-app-side-bar></x-app-side-bar> --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             生徒管理
