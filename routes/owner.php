@@ -10,6 +10,7 @@ use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\StudentsController;
+use App\Http\Controllers\Owner\TeachersController;
 
 
 /*
@@ -38,6 +39,15 @@ Route::prefix('leaved-students')->
 middleware('auth:owner')->group(function(){
     Route::get('index', [StudentsController::class, 'leavedStudentsIndex'])->name('leaved-students.index');
     Route::post('destroy/{student}', [StudentsController::class, 'leavedStudentsDestroy'])->name('leaved-students.destroy');
+});
+
+Route::resource('teachers', TeachersController::class)
+    ->middleware('auth:owner');
+
+Route::prefix('leaved-teachers')->
+middleware('auth:owner')->group(function(){
+    Route::get('index', [TeachersController::class, 'leavedTeachersIndex'])->name('leaved-teachers.index');
+    Route::post('destroy/{student}', [TeachersController::class, 'leavedTeachersDestroy'])->name('leaved-teachers.destroy');
 });
 
 Route::middleware('guest:owner')->group(function () {
