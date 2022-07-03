@@ -19,9 +19,9 @@ class StudentsController extends Controller
 
     public function index()
     {
-        $e_students = Student::select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana', 'grade')->get();
+        $students = Student::select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana', 'grade')->get();
 
-        return view('owner.students.index', compact('e_students'));
+        return view('owner.students.index', compact('students'));
     }
 
     public function create()
@@ -102,6 +102,7 @@ class StudentsController extends Controller
         //
         $student = Student::findOrFail($id);
 
+        $student->grade = $request->grade;
         $student->family_name = $request->family_name;
         $student->first_name = $request->first_name;
         $student->family_name_kana = $request->family_name_kana;

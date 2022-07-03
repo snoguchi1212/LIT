@@ -14,12 +14,15 @@
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
                             <form method="post" action="{{ route('owner.students.store') }}">
                             @csrf
-                                {{-- #TODO: 学年の入力をドロップダウンに --}}
-                                <div class="p-2 -m-2 w-1/4">
-                                    <label for="grade" class="leading-7 text-sm text-gray-600">学年</label>
-                                    <input type="text" id="grade" name="grade" value="{{ old('grade') }}" inputmode="numeric" pattern="^([1-7]{1})$" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                {{-- #TODO:学校も入力項目に加える --}}
+                            <div class="p-2 -m-2 w-2/4">
+                                <label for="grade" class="pr-2 leading-7 text-sm text-gray-600">学年</label>
+                                <select id="grade" name="grade">
+                                    @foreach (GradeConsts::GRADE_LIST as $number => $name )
+                                    <option value="{{ $number }}" @if($student->grade===$number) selected @endif>{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- #TODO:学校も入力項目に加える --}}
                                 {{-- #TODO:性別も入力項目に加える --}}
                                 {{-- #TODO:文理選択も入力項目に加える --}}
                                 <div class="flex flex-wrap -m-2">

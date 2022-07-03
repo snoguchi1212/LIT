@@ -28,7 +28,7 @@
                             {{-- #TODO:showメソッドの追加 --}}
                             @foreach ($leavedStudents as $e_student)
                             <tr>
-                                <td class="px-4 py-3">{{ $e_student->grade }}</td>
+                                <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade]}}</td>
                                 <td class="px-4 py-3">{{ $e_student->family_name }} {{ $e_student->first_name }}</td>
                                 <td class="px-4 py-3">{{ $e_student->family_name_kana }} {{ $e_student->first_name_kana }}</td>
                                 <td class="px-4 py-3">{{ $e_student->deleted_at->diffForHumans() }}</td>
