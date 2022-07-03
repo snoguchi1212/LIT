@@ -103,6 +103,7 @@ class StudentsController extends Controller
         $student = Student::findOrFail($id);
 
         $student->grade = $request->grade;
+        $student->sex = $request->sex;
         $student->family_name = $request->family_name;
         $student->first_name = $request->first_name;
         $student->family_name_kana = $request->family_name_kana;

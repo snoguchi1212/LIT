@@ -211,6 +211,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'GradeConsts' => App\Consts\GradeConsts::class,
-    ])->toArray(),
+        'SexConsts' => App\Consts\SexConsts::class,
+        ])->toArray(),
 
 ];

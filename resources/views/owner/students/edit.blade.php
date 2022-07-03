@@ -25,6 +25,14 @@
                                 </div>
                                 {{-- #TODO:学校も入力項目に加える --}}
                                 {{-- #TODO:性別も入力項目に加える --}}
+                                <div class="p-2 -m-2 w-2/4">
+                                    <label for="sex" class="pr-2 leading-7 text-sm text-gray-600">性別</label>
+                                    <select id="sex" name="sex">
+                                        @foreach (SexConsts::SEX_LIST as $number => $name )
+                                        <option value="{{ $number }}" @if($student->sex===$number) selected @endif>{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 {{-- #TODO:文理選択も入力項目に加える --}}
                                 <div class="flex flex-wrap -m-2">
                                 <div class="p-2 w-1/2">
@@ -59,14 +67,14 @@
                                 <input type="email" id="email" name="email" value="{{ $student->email }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                             {{-- #TODO:パスワードは、初期設定でメールアドレスにして、変更を促すようにする--}}
-                            <div class="p-2 -m-2">
+                            {{-- <div class="p-2 -m-2">
                                 <label for="password" class="leading-7 text-sm text-gray-600">パスワード</label>
                                 <input type="password" id="password" name="password" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                             <div class="p-2 -m-2">
                                 <label for="password_confirmation" class="leading-7 text-sm text-gray-600">パスワード(確認用)</label>
                                 <input type="password" id="password_confirmation" name="password_confirmation" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                            </div>
+                            </div> --}}
                             <div class="mt-4 p-2 w-full flex justify-around">
                                 <button type="button" onclick="location.href='{{ route('owner.students.index') }}'" class=" text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
                                 <button type="submit" class=" text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">更新する</button>

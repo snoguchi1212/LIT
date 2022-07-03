@@ -18,13 +18,21 @@
                                 <label for="grade" class="pr-2 leading-7 text-sm text-gray-600">学年</label>
                                 <select id="grade" name="grade">
                                     @foreach (GradeConsts::GRADE_LIST as $number => $name )
-                                    <option value="{{ $number }}" @if($student->grade===$number) selected @endif>{{ $name }}</option>
+                                    <option value="{{ $number }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             {{-- #TODO:学校も入力項目に加える --}}
-                                {{-- #TODO:性別も入力項目に加える --}}
-                                {{-- #TODO:文理選択も入力項目に加える --}}
+                            {{-- #TODO:性別も入力項目に加える --}}
+                            <div class="p-2 -m-2 w-2/4">
+                                <label for="sex" class="pr-2 leading-7 text-sm text-gray-600">性別</label>
+                                <select id="sex" name="sex">
+                                    @foreach (SexConsts::SEX_LIST as $number => $name )
+                                    <option value="{{ $number }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- #TODO:文理選択も入力項目に加える --}}
                                 <div class="flex flex-wrap -m-2">
                                 <div class="p-2 w-1/2">
                                 <div class="relative">
