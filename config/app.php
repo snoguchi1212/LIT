@@ -212,6 +212,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'GradeConsts' => App\Consts\GradeConsts::class,
         'SexConsts' => App\Consts\SexConsts::class,
+        'LSChoiceConsts' => App\Consts\LSChoiceConsts::class,
         ])->toArray(),
 
 ];

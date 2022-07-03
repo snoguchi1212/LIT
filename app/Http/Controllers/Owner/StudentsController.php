@@ -39,6 +39,8 @@ class StudentsController extends Controller
     {
         $request->validate([
             'grade' => ['required', 'integer', 'digits_between:1,7'],
+            'sex' => ['required', 'integer', 'digits_between:0,3'],
+            'ls_choice' => ['integer', 'digits_between:0,3'],
             'family_name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'family_name_kana' => ['required', 'string', 'max:255'],
@@ -48,8 +50,10 @@ class StudentsController extends Controller
         ]);
 
 
-        $user = Student::create([
+        Student::create([
             'grade' => $request->grade,
+            'sex' => $request->sex,
+            'ls_choice' => $request->ls_choice,
             'family_name' => $request->family_name,
             'first_name' => $request->first_name,
             'family_name_kana' => $request->family_name_kana,
@@ -61,8 +65,8 @@ class StudentsController extends Controller
         return redirect()
         ->route('owner.students.index')
         ->with(['message', '新規生徒を登録しました。',
-        'status' => 'info',
-    ]);
+            'status' => 'info',
+        ]);
     }
 
     /**
@@ -104,12 +108,13 @@ class StudentsController extends Controller
 
         $student->grade = $request->grade;
         $student->sex = $request->sex;
+        $student->ls_choice = $request->ls_choice;
         $student->family_name = $request->family_name;
         $student->first_name = $request->first_name;
         $student->family_name_kana = $request->family_name_kana;
         $student->first_name_kana = $request->first_name_kana;
         // TODO:パスワードを変更できないようにする
-        $student->password = Hash::make($request->password);
+        // $student->password = Hash::make($request->password);
         $student->save();
 
         return redirect()
