@@ -26,19 +26,19 @@
                             </thead>
                             <tbody>
                             {{-- #TODO:showメソッドの追加 --}}
-                            @foreach ($leavedStudents as $e_student)
+                            @foreach ($leavedStudents as $student)
                             <tr>
                                 <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade]}}</td>
-                                <td class="px-4 py-3">{{ $e_student->family_name }} {{ $e_student->first_name }}</td>
-                                <td class="px-4 py-3">{{ $e_student->family_name_kana }} {{ $e_student->first_name_kana }}</td>
-                                <td class="px-4 py-3">{{ $e_student->deleted_at->diffForHumans() }}</td>
+                                <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
+                                <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
+                                <td class="px-4 py-3">{{ $student->deleted_at->diffForHumans() }}</td>
                                 <td class="px-4 py-3">
-                                <button onclick="location.href='{{ route('owner.students.edit', [$e_student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
+                                <button onclick="location.href='{{ route('owner.students.edit', [$student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
                                 </td>
-                                <form id="delete_{{ $e_student->id }}" method="post" action="{{ route('owner.leaved-students.destroy', [$e_student->id]) }}">
+                                <form id="delete_{{ $student->id }}" method="post" action="{{ route('owner.leaved-students.destroy', [$student->id]) }}">
                                     @csrf
                                     <td class="px-4 py-3">
-                                        <a href="#" data-id="{{ $e_student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
+                                        <a href="#" data-id="{{ $student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
                                     </td>
                                 </form>
                             </tr>
