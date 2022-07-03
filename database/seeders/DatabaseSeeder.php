@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PrefectureCode;
 use App\Models\Teacher;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,8 @@ class DatabaseSeeder extends Seeder
                 OwnerSeeder::class,
                 StudentSeeder::class,
                 TeacherSeeder::class,
+                PrefectureCodeSeeder::class,
+                // SchoolCodeSeeder::class,
             ]
             );
 
