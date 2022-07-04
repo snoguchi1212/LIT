@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Test;
 use App\Models\Score;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 
 class TestsController extends Controller
@@ -46,11 +47,30 @@ class TestsController extends Controller
         $studentTests = [];
         foreach ($tests as $test) {
             $scores = Score::where('test_id', $test->id)->get();
-            $studentTest = [
+            $studentScores = [];
+            foreach ($scores as $score) {
+// HACK:モデル操作
+                $subject =  Subject::where('id', $score->subject_id)->select('name')->get();
+
+                $tempScore = [
+                    'name' => $score->name,
+                    'subject' => $subject[0]->name,
+                    'score' => $score->score,
+                    'average_score' => $score->score,
+                    'deviation_value' => $score->deviation_value,
+                    'school_ranking' => $score->school_ranking,
+                    'school_people' => $score->school_people,
+                    'national_ranking' => $score->national_ranking,
+                    'national_people' => $score->national_people,
+                ];
+                array_push($studentScores, $tempScore);
+            };
+            $studentScores = [
                 'test' => $test,
-                'scores' => $scores,
+                'scores' => $studentScores,
             ];
-            array_push($studentTests, $studentTest);
+
+            array_push($studentTests, $studentScores);
         }
 
         return view('student.tests.index',

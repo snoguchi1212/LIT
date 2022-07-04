@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('test_id')->constrained('tests'); //#TODO:foreign
-            $table->bigInteger('subject_id'); //#TODO:foreign
+            $table->foreignId('subject_id')->constrained('subjects'); //#TODO:foreign
             $table->integer('score');
             $table->integer('school_ranking')->nullable();
             $table->integer('school_people')->nullable();

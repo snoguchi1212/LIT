@@ -36,13 +36,13 @@
                                         <tbody>
                                         @foreach ($studentTest['scores'] as $score)
                                             <tr>
-                                                <td class="px-4 py-3">{{ $score->subject_id }}</td>
-                                                <td class="px-4 py-3">{{ $score->name }}</td>
-                                                <td class="px-4 py-3">{{ $score->score }}</td>
-                                                <td class="px-4 py-3">{{ $score->average_score }}</td>
-                                                <td class="px-4 py-3">{{ $score->deviation_value }}</td>
-                                                <td class="px-4 py-3">{{ $score->school_ranking }} / {{ $score->school_people }}人中</td>
-                                                <td class="px-4 py-3">{{ $score->national_ranking }} / {{ $score->national_people }}人中</td>
+                                                <td class="px-4 py-3">{{ $score['subject'] }}</td>
+                                                <td class="px-4 py-3">{{ $score['name'] }}</td>
+                                                <td class="px-4 py-3">{{ $score['score'] }}</td>
+                                                <td class="px-4 py-3">{{ $score['average_score'] }}</td>
+                                                <td class="px-4 py-3">{{ $score['deviation_value'] }}</td>
+                                                <td class="px-4 py-3">{{ $score['school_ranking'] }} / {{ $score['school_people'] }}人中</td>
+                                                <td class="px-4 py-3">{{ $score['national_ranking'] }} / {{ $score['national_people'] }}人中</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

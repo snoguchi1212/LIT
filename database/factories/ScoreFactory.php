@@ -20,7 +20,7 @@ class ScoreFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'test_id' => $this->faker->numberBetween(1, 20),
-            'subject_id' => $this->faker->numberBetween(1, 10),
+            'subject_id' => $this->faker->numberBetween(1, 6),
             'score' => $this->faker->numberBetween(0, 100),
             'school_ranking' => $this->faker->numberBetween(1, 50),
             'school_people' => $this->faker->numberBetween(50, 100),
