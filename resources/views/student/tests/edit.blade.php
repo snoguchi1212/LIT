@@ -1,5 +1,4 @@
 <x-app-layout>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css\student\test\style.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -14,13 +13,8 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                                <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('student.tests.create') }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">点数を登録する</button>
-                                </div>
-                                {{-- TODO:レスポンシブ対応 --}}
-                            @foreach ($studentTests as $studentTest)
-                                <div class="studentTestContainer border-2 border-gray-300 sm:rounded-lg">
-                                    <div class="studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">{{ $studentTest['test']['title'] }}</div>
+                                <div class="studentTestContainer absolute border-2 border-gray-300">
+                                    <div class="studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">{{ $test->title }}</div>
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
                                             <tr>
@@ -34,7 +28,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($studentTest['scores'] as $score)
+                                        @foreach ($scores as $score)
                                             <tr>
                                                 <td class="px-4 py-3">{{ $score->subject_id }}</td>
                                                 <td class="px-4 py-3">{{ $score->name }}</td>
@@ -47,18 +41,15 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="edit_btn m-2">
-                                        <button onclick="location.href='{{ route('student.tests.edit', ['test' => $studentTest['test']->id]) }}'" class="text-white bg-blue-400 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">点数を編集する</button>
+                                    <div class="edit_btn m-2 flex justify-end mb-4">
+                                        <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">確認画面へ</button>
                                     </div>
                                 </div>
-                            @endforeach
-                        </table>
+                            </div>
                         </div>
-                    </div>
                     </section>
                 </div>
             </div>
         </div>
     </div>
-<script src={{ asset('js\accordion.js')}} ></script>
 </x-app-layout>

@@ -46,4 +46,8 @@ class Student extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function test(){
+        return $this->hasMany(Test::class, 'test_id');
+    }
 }

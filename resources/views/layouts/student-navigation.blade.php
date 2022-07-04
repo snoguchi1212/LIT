@@ -17,7 +17,7 @@
                     <x-nav-link :href="route('student.dashboard')" :active="request()->routeIs('student.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('student.tests.index')" :active="request()->routeIs('student.tests')">
+                    <x-nav-link :href="route('student.tests.index')" :active="request()->routeIs('student.tests.index')">
                         定期テスト点数
                     </x-nav-link>
                 </div>

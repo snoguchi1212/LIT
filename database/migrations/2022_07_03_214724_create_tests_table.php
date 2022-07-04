@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('student_id'); //#TODO:foreign
+            $table->foreignId('student_id')->constrained('students');
             $table->string('title');
             $table->timestamps();
         });

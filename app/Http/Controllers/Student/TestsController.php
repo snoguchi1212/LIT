@@ -15,16 +15,19 @@ class TestsController extends Controller
     {
         $this->middleware('auth:students');
 
+
         $this->middleware(function($request, $next) {
             $id = $request->route()->parameter('test');
+            // dd($id); これで, testのidはとれてる
             if(!is_null($id)) {
-                $testsStudentId = Test::findOrFail($id)->student->id;
+                $testsStudentId = Test::findOrFail($id)->student_id;
                 $studentId = (int)$testsStudentId;
                 $testId = Auth::id();
                 if($studentId !== $testId){
                     abort(404);
                 }
             }
+
             return $next($request);
         });
 
@@ -96,11 +99,15 @@ class TestsController extends Controller
      */
     public function edit($id)
     {
-        $tests = Test::where('id', $id)->get();
+
+        $test = Test::find($id);
         $scores = Test::find($id)->scores;
 
-        return view('student.tests.create',
-        compact('scores'));
+        // dd($test, $scores);
+        // データの取得ができた
+        // #viewの編集
+        return view('student.tests.edit',
+        compact('test', 'scores'));
 
     }
 
