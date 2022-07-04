@@ -6,6 +6,8 @@ use App\Models\PrefectureCode;
 use App\Models\Teacher;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Score;
+use App\Models\Test;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +27,9 @@ class DatabaseSeeder extends Seeder
                 // SchoolCodeSeeder::class,
             ]
             );
+
+        Test::factory(40)->create();
+        Score::factory(100)->create();
 
         // \App\Models\User::factory(10)->create();
 
