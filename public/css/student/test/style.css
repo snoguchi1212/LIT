@@ -8,7 +8,8 @@ div.studentTest {
 div.studentTest::after{
     content: '+';
     position: absolute;
-    top: 8px;
+    font-size: 28px;
+    top: 11px;
     right: 16px;
     transition: transform .3s;
 }
