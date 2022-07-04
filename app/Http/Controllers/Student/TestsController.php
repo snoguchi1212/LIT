@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Test;
+use App\Models\Score;
 use Illuminate\Support\Facades\Auth;
 
 class TestsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:student');
+        $this->middleware('auth:students');
 
         $this->middleware(function($request, $next) {
             $id = $request->route()->parameter('test');
@@ -36,10 +39,19 @@ class TestsController extends Controller
     {
         $studentId = Auth::id();
         $tests = Test::where('student_id', $studentId)->get();
-        $scores = Score::where('student_id', $studentId)->get();
+
+        $studentTests = [];
+        foreach ($tests as $test) {
+            $scores = Score::where('test_id', $test->id)->get();
+            $studentTest = [
+                'test' => $test,
+                'scores' => $scores,
+            ];
+            array_push($studentTests, $studentTest);
+        }
 
         return view('student.tests.index',
-        compact('tests', 'scores'));
+        compact('studentTests'));
     }
 
     /**
@@ -49,7 +61,8 @@ class TestsController extends Controller
      */
     public function create()
     {
-        return view('owner.tests.create');
+
+        return view('student.tests.create');
     }
 
     /**
@@ -60,6 +73,7 @@ class TestsController extends Controller
      */
     public function store(Request $request)
     {
+
         //
     }
 
@@ -82,7 +96,12 @@ class TestsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tests = Test::where('id', $id)->get();
+        $scores = Test::find($id)->scores;
+
+        return view('student.tests.create',
+        compact('scores'));
+
     }
 
     /**

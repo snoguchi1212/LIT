@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             ]
             );
 
-        Test::factory(40)->create();
+        Test::factory(20)->create();
         Score::factory(100)->create();
 
         // \App\Models\User::factory(10)->create();

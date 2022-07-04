@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('test_id'); //#TODO:foreign
+            $table->foreignId('test_id')->constrained('tests'); //#TODO:foreign
             $table->bigInteger('subject_id'); //#TODO:foreign
             $table->integer('score');
             $table->integer('school_ranking')->nullable();

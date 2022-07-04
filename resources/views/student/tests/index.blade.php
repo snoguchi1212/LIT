@@ -14,42 +14,15 @@
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('owner.students.create') }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">新規登録する</button>
+                                    <button onclick="location.href='{{ route('student.tests.create') }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">点数を登録する</button>
                                 </div>
-                        <table class="table-auto w-full text-left whitespace-no-wrap">
-                            <thead>
-                            <tr>
-                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">テスト</th>
-                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"></th>
-                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">ナマエ</th>
-                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
-                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
-                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {{-- #TODO:showメソッドの追加 --}}
-                            @foreach ($students as $student)
-                            <tr>
-                                <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade]}}</td>
-                                <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
-                                <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
-                                <td class="px-4 py-3">
-                                    <button onclick="location.href='{{ route('owner.students.show', [$student->id]) }}'" type="submit" class=" text-white bg-blue-400 border-0 py-2 px-4 focus:outline-none hover:bg-blue-500 rounded ">詳細</button>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <button onclick="location.href='{{ route('owner.students.edit', [$student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">編集</button>
-                                </td>
-                                <form id="delete_{{ $student->id }}" method="post" action="{{ route('owner.students.destroy', [$student->id]) }}">
-                                    @csrf
-                                    @method("delete")
-                                    <td class="px-4 py-3">
-                                        <a href="#" data-id="{{ $student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">削除</a>
-                                    </td>
-                                </form>
-                            </tr>
+                            @foreach ($studentTests as $studentTest)
+                                <div>{{ $studentTest['test']['title'] }}</div>
+                                @foreach ($studentTest['scores'] as $score)
+                                    <div>{{ $score['subject_id'] }}</div>
+                                    <div>{{ $score['score'] }}</div>
+                                @endforeach
                             @endforeach
-                            </tbody>
                         </table>
                         </div>
                     </div>
