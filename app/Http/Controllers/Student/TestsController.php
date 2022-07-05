@@ -50,6 +50,7 @@ class TestsController extends Controller
             $studentScores = [];
             foreach ($scores as $score) {
 // HACK:モデル操作
+// TODO:並び替えを行う
                 $subject =  Subject::where('id', $score->subject_id)->select('name')->get();
 
                 $tempScore = [
