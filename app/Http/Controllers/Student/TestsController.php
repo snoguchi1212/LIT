@@ -85,8 +85,9 @@ class TestsController extends Controller
      */
     public function create()
     {
+        $subjects =  Subject::select('id', 'name')->get();
 
-        return view('student.tests.create');
+        return view('student.tests.create', compact('subjects'));
     }
 
     /**

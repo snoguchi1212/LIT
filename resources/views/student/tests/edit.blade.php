@@ -1,4 +1,5 @@
 <x-app-layout>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css\student\test\edit.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -13,7 +14,13 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                                <div class="studentTestContainer absolute border-2 border-gray-300">
+                                <div class="studentTestContainer border-2 border-gray-300 sm:rounded-lg">
+                                    <div class="studentTestContainer border-2 border-gray-300 sm:rounded-lg"> {{-- absoluteが?? --}}
+                    {{-- <section class="text-gray-600 body-font">
+                        <div class="container px-5 mx-auto">
+                            <x-flash-message status="session('status')" />
+                            <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <div class="studentTestContainer absolute border-2 border-gray-300"> --}}
                                     <div class="studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">{{ $test->title }}</div>
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
@@ -44,10 +51,10 @@
                                     <div class="edit_btn m-2 flex justify-end mb-4">
                                         <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">確認画面へ</button>
                                     </div>
-                                </div>
+                                {{-- </div>
                             </div>
                         </div>
-                    </section>
+                    </section> --}}
                 </div>
             </div>
         </div>
