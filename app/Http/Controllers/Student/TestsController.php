@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\TestRequest;
 use App\Models\Test;
 use App\Models\Score;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Template\Template;
+
 
 use function Psy\debug;
 
@@ -61,7 +63,7 @@ class TestsController extends Controller
                     'name' => $score->name,
                     'subject' => $subject[0]->name,
                     'score' => $score->score,
-                    'average_score' => $score->score,
+                    'average_score' => $score->average_score,
                     'deviation_value' => $score->deviation_value,
                     'school_ranking' => $score->school_ranking,
                     'school_people' => $score->school_people,
@@ -100,7 +102,7 @@ class TestsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TestRequest $request)
     {
 
         // #TODO:validationをかける https://zenn.dev/kiwatchi1991/articles/6046224a23c3eee0fbeb
@@ -116,7 +118,6 @@ class TestsController extends Controller
 
                 $i = 0;
                 $tempRequest = [];
-
 
                 foreach ($request->all() as $val) {
 
@@ -202,6 +203,8 @@ class TestsController extends Controller
     public function edit($id)
     {
 
+        $subjects =  Subject::select('id', 'name')->get();
+
         $test = Test::find($id);
         $scores = Test::find($id)->scores;
 
@@ -209,7 +212,7 @@ class TestsController extends Controller
         // データの取得ができた
         // #viewの編集
         return view('student.tests.edit',
-        compact('test', 'scores'));
+        compact('subjects', 'test', 'scores'));
 
     }
 
@@ -220,9 +223,90 @@ class TestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TestRequest $request, $id)
     {
-        //
+        // テスト(tests)は更新
+        // 点数(scores)は削除して追加
+
+        //HACK:もう少し綺麗に書ける
+
+        try{
+            DB::transaction(function () use($request){
+
+                $test = Test::where('id', $request->test);
+                $test->update([
+                    'title' => $request->title[0],
+                ]);
+                $test = Test::where('id', $request->test);
+
+                // dd($test->first()->id);
+
+                Score::where('test_id', $test->first()->id)->delete();
+
+                $i = 0;
+                $tempRequest = [];
+
+                foreach ($request->all() as $val) {
+
+                    $tempRequest['test_id'] = $test->first()->id;
+
+                    if (!(isset($request->name[$i]))) {
+                        $i++;
+                        continue;
+                    }
+                    $tempRequest['name'] = $request->name[$i];
+
+                    if (!(isset($request->score[$i]))) {
+                        $i++;
+                        continue;
+                    }
+                    $tempRequest['score'] = $request->score[$i];
+
+                    if (!(isset($request->subject_id[$i]))) {
+                        $i++;
+                        continue;
+                    }
+                    $tempRequest['subject_id'] = $request->subject_id[$i];
+
+                    if (isset($request->school_ranking[$i])) {
+                        $tempRequest['school_ranking'] = $request->school_ranking[$i];
+                    }
+                    if (isset($request->school_people[$i])) {
+                        $tempRequest['school_people'] = $request->school_people[$i];
+                    }
+                    if (isset($request->national_ranking[$i])) {
+                        $tempRequest['national_ranking'] = $request->national_ranking[$i];
+                    }
+                    if (isset($request->national_people[$i])) {
+                        $tempRequest['national_people'] = $request->national_people[$i];
+                    }
+                    if (isset($request->deviation_value[$i])) {
+                        $tempRequest['deviation_value'] = $request->deviation_value[$i];
+                    }
+                    if (isset($request->average_score[$i])) {
+                        $tempRequest['average_score'] = $request->average_score[$i];
+                    }
+
+                    if(isset($tempRequest)) {
+                        DB::table('scores')->insert($tempRequest);
+                        $tempRequest = [];
+                    }
+                    $i++;
+                }
+
+            }, 2);
+        }catch(Throwable $e){
+            Log::error($e);
+            throw $e;
+        }
+
+
+        return redirect()
+        ->route('student.tests.index')
+        ->with([
+            'message' => '点数を編集しました。',
+            'status' => 'info',
+        ]);
     }
 
     /**

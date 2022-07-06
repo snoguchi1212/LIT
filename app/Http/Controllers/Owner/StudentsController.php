@@ -37,6 +37,7 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO:requestへの切り出し
         $request->validate([
             'grade' => ['required', 'integer', 'digits_between:1,7'],
             'sex' => ['required', 'integer', 'digits_between:0,3'],

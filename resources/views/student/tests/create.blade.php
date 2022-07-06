@@ -22,7 +22,7 @@
                                 <div id="scoreForms" class="scoreForms mb-4 border-b border-gray-400">
                                     {{-- 入力フォーム → #TODO:これを複製できるようにする --}}
                                     {{-- #TODO:最後にも線を引く --}}
-                                    <div class="scoreForm rounded my-4 border-solid border-t border-gray-400">
+                                    <div class="scoreForm my-4 border-solid border-t border-gray-400">
                                         <div class="mainForm m-2">
                                             <div class="md:flex flex-wrap -m-2 ml-0 mt-0">
                                                 <div class="p-2 mr-8 w-1/4">
@@ -108,7 +108,7 @@
                                             </div>
                                             {{-- #TODO:リンク先の変更 --}}
                                         </div> {{-- subForm --}}
-                                    </div> {{-- scoresForm --}}
+                                    </div> {{-- scoreForm --}}
                                 </div> {{-- scoresForms --}}
                                 {{-- 入力ボックスの追加ボタン --}}
                                 <div class="-mt-2 p-2 w-full flex justify-around">

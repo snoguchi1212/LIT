@@ -19,6 +19,7 @@ class Score extends Model
         'school_ranking',
         'school_people',
         'national_ranking',
+        'national_people',
         'deviation_value',
         'average_score',
     ];

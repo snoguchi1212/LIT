@@ -37,6 +37,8 @@ class TeachersController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO:requestへの切り出し
+
         $request->validate([
             'sex' => ['required', 'integer', 'digits_between:0,3'],
             'family_name' => ['required', 'string', 'max:255'],
