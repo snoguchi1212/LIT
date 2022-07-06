@@ -19,6 +19,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 {
+  // フォームのカウンタ変数
   var hideRemoveButton = function hideRemoveButton() {
     var scoreFormButtons = document.getElementsByClassName('removeFormButton');
 
@@ -33,13 +34,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     _toConsumableArray(scoreFormButtons).forEach(function (scoreFormButton) {
       scoreFormButton.classList.remove('hidden');
     });
-  }; // HACK:removeを使えば, もっと簡単になる
-  // HACK:要素を取得する部分はもっと簡単に書けるのかな?
+  }; // TODO:項目が一つしかないときは, 削除ボタンが表示されないようにする
+  // フォームの作成
 
 
-  console.log('hoge');
-  var addForm_btn = document.getElementById('addForm'); // TODO:項目が一つしかないときは, 削除ボタンが表示されないようにする
-
+  var addForm_btn = document.getElementById('addForm');
+  var removeFormRoots = document.getElementById('scoreForms');
   var i = 1;
   addForm_btn.addEventListener('click', function () {
     // 8人以上なら処理を終了
@@ -54,10 +54,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     scoreForms.appendChild(newElement);
     appearRemoveButton();
     i++;
-    console.log(i);
-  });
-  var removeFormRoots = document.getElementById('scoreForms');
-  console.log(removeFormRoots.classList.contains('scoreForms'));
+  }); // HACK:removeを使えば, もっと簡単になる
+  // HACK:要素を取得する部分はもっと簡単に書けるのかな?
+  // フォームの削除
+
   removeFormRoots.addEventListener('click', function (e) {
     if (i == 1) {
       return true;

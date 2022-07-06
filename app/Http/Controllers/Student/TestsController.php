@@ -9,6 +9,10 @@ use App\Models\Test;
 use App\Models\Score;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use SebastianBergmann\Template\Template;
+
+use function Psy\debug;
 
 class TestsController extends Controller
 {
@@ -99,6 +103,82 @@ class TestsController extends Controller
     public function store(Request $request)
     {
 
+        // #TODO:validationをかける https://zenn.dev/kiwatchi1991/articles/6046224a23c3eee0fbeb
+
+        // #HACK:もう少し綺麗に書けそう
+        try{
+            DB::transaction(function () use($request){
+
+                $test = Test::create([
+                    'student_id' => Auth::id(),
+                    'title' => $request->title[0],
+                ]);
+
+                $i = 0;
+                $tempRequest = [];
+
+
+                foreach ($request->all() as $val) {
+
+                    $tempRequest['test_id'] = $test->id;
+
+                    if (!(isset($request->name[$i]))) {
+                        $i++;
+                        continue;
+                    }
+                    $tempRequest['name'] = $request->name[$i];
+
+                    if (!(isset($request->score[$i]))) {
+                        $i++;
+                        continue;
+                    }
+                    $tempRequest['score'] = $request->score[$i];
+
+                    if (!(isset($request->subject_id[$i]))) {
+                        $i++;
+                        continue;
+                    }
+                    $tempRequest['subject_id'] = $request->subject_id[$i];
+
+                    if (isset($request->school_ranking[$i])) {
+                        $tempRequest['school_ranking'] = $request->school_ranking[$i];
+                    }
+                    if (isset($request->school_people[$i])) {
+                        $tempRequest['school_people'] = $request->school_people[$i];
+                    }
+                    if (isset($request->national_ranking[$i])) {
+                        $tempRequest['national_ranking'] = $request->national_ranking[$i];
+                    }
+                    if (isset($request->national_people[$i])) {
+                        $tempRequest['national_people'] = $request->national_people[$i];
+                    }
+                    if (isset($request->deviation_value[$i])) {
+                        $tempRequest['deviation_value'] = $request->deviation_value[$i];
+                    }
+                    if (isset($request->average_score[$i])) {
+                        $tempRequest['average_score'] = $request->average_score[$i];
+                    }
+
+                    if(isset($tempRequest)) {
+                        DB::table('scores')->insert($tempRequest);
+                        $tempRequest = [];
+                    }
+                    $i++;
+                }
+
+            }, 2);
+        }catch(Throwable $e){
+            Log::error($e);
+            throw $e;
+        }
+
+
+        return redirect()
+        ->route('student.tests.index')
+        ->with([
+            'message' => '点数を登録しました。',
+            'status' => 'info',
+        ]);
         //
     }
 
