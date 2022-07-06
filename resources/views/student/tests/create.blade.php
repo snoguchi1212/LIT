@@ -1,4 +1,5 @@
 <x-app-layout>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css\student\test\edit.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             得点登録画面
@@ -16,9 +17,9 @@
                             @csrf
                                 <div class="p-2 -m-2 w-3/4">
                                     <label for="title" class="leading-7 text-sm text-gray-600">テスト名</label>
-                                    <input type="text" id="title" name="title" value="{{ old('title') }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <input type="text" id="title" name="title[]" value="{{ old('title') }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
-                                <div class="scoreForms mb-4 border-b border-gray-400">
+                                <div id="scoreForms" class="scoreForms mb-4 border-b border-gray-400">
                                     {{-- 入力フォーム → #TODO:これを複製できるようにする --}}
                                     {{-- #TODO:最後にも線を引く --}}
                                     <div class="scoreForm my-4 border-solid border-t border-gray-400">
@@ -26,7 +27,7 @@
                                             <div class="md:flex flex-wrap -m-2 ml-0 mt-0">
                                                 <div class="p-2 mr-8 w-1/4">
                                                     <label for="subject" class="leading-7 text-sm text-gray-600">教科</label>
-                                                    <select id="subject" name="subject">
+                                                    <select id="subject" name="subject[]">
                                                         @foreach ($subjects as $subject )
                                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                                         @endforeach
@@ -38,40 +39,15 @@
                                                         <input type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     </div>
                                                 </div>
-                                                <div class="p-2 w-2/5">
-                                                    <div class="relative">
-                                                        <label for="score" class="leading-7 text-sm text-gray-600">点数</label>
-                                                        <input type="number" id="score" name="score" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-                                        {{-- mainForm --}}
-                                        {{-- <div class="mainForm">
-                                            <div class="flex flex-wrap -m-2 ml-0 mt-0">
-                                                <div class="p-2 mr-4 w-1/4">
-                                                    <label for="subject" class="leading-7 text-sm text-gray-600">教科</label>
-                                                    <select id="subject" name="subject">
-                                                        @foreach ($subjects as $subject )
-                                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="p-2 w-1/4">
-                                                    <div class="relative">
-                                                        <label for="name" class="leading-7 text-sm text-gray-600">科目名</label>
-                                                        <input type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                    </div>
-                                                </div>
+                                        <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
+                                            <div class="p-2 mr-4 sm:w-1/5 w-2/5">
+                                                <label for="score" class="leading-7 text-sm text-gray-600">点数</label>
+                                                <input type="number" id="score" name="score"  inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
-                                            <div class="p-2 pl-0 w-1/4 -m-2 ml-2 mt-0">
-                                                <div class="relative">
-                                                    <label for="score" class="leading-7 text-sm text-gray-600">点数</label>
-                                                    <input type="number" id="score" name="score" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                </div>
-                                            </div>
-                                        </div> --}}
-                                        {{-- mainForm --}}
+                                        </div>
+                                    {{-- mainForm --}}
                                         <div class="subForm">
                                             <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
                                                 <div class="p-2 mr-4 sm:w-1/5 w-2/5">
@@ -123,8 +99,8 @@
                                                     <div class="relative w-8">
                                                         <span class="absolute bottom-2 text-sm align-text-bottom text-gray-600">人中</span>
                                                     </div>
-                                                    <div class="p-2 ml-auto mt-10 mr-4">
-                                                        <a onclick="location.href='{{ route('student.tests.create') }}'" class="text-white bg-red-400 border-0 py-2 px-2 focus:outline-none hover:bg-red-500 rounded text-lg">削除</a>
+                                                    <div class="p-2 ml-auto sm:mt-10 mt-4 mr-4">
+                                                        <a class="removeFormButton hidden cursor-pointer text-white bg-red-400 border-0 py-2 px-2 focus:outline-none hover:bg-red-500 rounded text-lg">削除</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,7 +110,7 @@
                                 </div> {{-- scoresForms --}}
                                 {{-- 入力ボックスの追加ボタン --}}
                                 <div class="-mt-2 p-2 w-full flex justify-around">
-                                    <button type="button" onclick="location.href='{{ route('student.tests.index') }}'" class=" text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">入力欄を追加</button>
+                                    <button id="addForm" type="button" class="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">入力欄を追加</button>
                                 </div>
                                 {{-- 入力されたデータの送信ボタン --}}
                                 <div class="mt-4 p-2 w-full flex justify-around">
@@ -149,5 +125,5 @@
             </div>
         </div>
     </div>
-<script src={{ asset('js\testEdit.js')}} ></script>
+<script src={{ asset('js\testEdit.js')}}></script>
 </x-app-layout>
