@@ -12,7 +12,7 @@ use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Template\Template;
-
+use App\Services\TestService;
 
 use function Psy\debug;
 
@@ -22,21 +22,23 @@ class TestsController extends Controller
     {
         $this->middleware('auth:students');
 
-
         $this->middleware(function($request, $next) {
             $id = $request->route()->parameter('test');
-            // dd($id); これで, testのidはとれてる
             if(!is_null($id)) {
                 $testsStudentId = Test::findOrFail($id)->student_id;
-                $studentId = (int)$testsStudentId;
-                $testId = Auth::id();
+                $testId = (int)$testsStudentId;
+                $studentId = Auth::id();
+
                 if($studentId !== $testId){
                     abort(404);
                 }
             }
 
+
+
             return $next($request);
         });
+
 
     }
 
@@ -47,42 +49,26 @@ class TestsController extends Controller
      */
     public function index()
     {
+
         $studentId = Auth::id();
-        $tests = Test::where('student_id', $studentId)->get();
+        $tests = TestService::groupedByTest($studentId);
 
-        $studentTests = [];
-        foreach ($tests as $test) {
-            $scores = Score::where('test_id', $test->id)->get();
-            $studentScores = [];
-            foreach ($scores as $score) {
-// HACK:モデル操作
-// TODO:並び替えを行う
-                $subject =  Subject::where('id', $score->subject_id)->select('name')->get();
-
-                $tempScore = [
-                    'name' => $score->name,
-                    'subject' => $subject[0]->name,
-                    'score' => $score->score,
-                    'average_score' => $score->average_score,
-                    'deviation_value' => $score->deviation_value,
-                    'school_ranking' => $score->school_ranking,
-                    'school_people' => $score->school_people,
-                    'national_ranking' => $score->national_ranking,
-                    'national_people' => $score->national_people,
-                ];
-                array_push($studentScores, $tempScore);
-            };
-            $studentScores = [
-                'test' => $test,
-                'scores' => $studentScores,
-            ];
-
-            array_push($studentTests, $studentScores);
-        }
 
         return view('student.tests.index',
-        compact('studentTests'));
+        compact('tests'));
+
     }
+
+    public function indexOrderedBySubject()
+    {
+
+        $studentId = Auth::id();
+        $subjects = TestService::groupedBySubject($studentId);
+
+        return view('student.tests.index-ordered-by-subject',
+        compact('subjects'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -13,7 +13,7 @@
                         <div class="container px-5 mx-auto">
                             <div class="lg:w-1/2 md:w-2/3 mx-auto">
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                            <form method="post" action="{{ route('student.tests.update', ['test' => $test->id]) }}">
+                            <form id="form" method="post" action="{{ route('student.tests.update', ['test' => $test->id]) }}">
                             @csrf
                             @method('put')
                                 <div class="p-2 -m-2 w-3/4">
@@ -52,13 +52,13 @@
                                             <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
                                                 <div class="p-2 mr-4 sm:w-1/5 w-2/5">
                                                     <label for="average_score" class="leading-7 text-sm text-gray-600">平均点</label><br>
-                                                    <input type="number" step="0.1" id="average_score" name="average_score[]" value={{ $score->average_score }} inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
+                                                    <input type="number" step="0.1" id="average_score" name="average_score[]" @if(!is_null($score->average_score))value={{ $score->average_score }}@endif inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
                                                     <span class="text-gray-600 text-xs">(小数第1位)</span></label>
                                                 </div>
                                                 <div class="p-2 sm:w-1/5 w-2/5">
                                                     <div class="relative">
                                                         <label for="deviation_value" class="leading-7 text-sm text-gray-600">偏差値</label>
-                                                        <input type="number" step="0.1" id="deviation_value" name="deviation_value[]" inputmode="decimal" value={{ $score->deviation_value }} class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <input type="number" step="0.1" id="deviation_value" name="deviation_value[]" inputmode="decimal" @if(!is_null($score->deviation_value))value={{ $score->deviation_value }}@endif class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                         <span class="text-gray-600 text-xs">(小数第1位)</span></label>
                                                     </div>
                                                 </div>
@@ -67,7 +67,7 @@
                                                 <div class="flex flex-wrap">
                                                     <div class="p-2 sm:w-1/5 w-2/5">
                                                         <label for="school_ranking" class="leading-7 text-sm text-gray-600">校内順位</label>
-                                                        <input type="number" id="school_ranking" name="school_ranking[]"  inputmode="number"  value={{ $score->school_ranking }}  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <input type="number" id="school_ranking" name="school_ranking[]"  inputmode="number"  @if(!is_null($score->school_ranking))value={{ $score->school_ranking }}@endif class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     </div>
                                                     <div class="relative w-4">
                                                         <span class="absolute bottom-2 text-sm align-text-bottom text-gray-600">位</span>
@@ -75,7 +75,7 @@
                                                     <div class="p-2 sm:w-1/5 w-2/5">
                                                         <div class="relative">
                                                             <label for="school_people" class="leading-7 text-sm text-gray-600">　</label>
-                                                            <input type="number" id="school_people" name="school_people[]" inputmode="number"  value={{ $score->school_people }}  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                            <input type="number" id="school_people" name="school_people[]" inputmode="number"  @if(!is_null($score->school_people))value={{ $score->school_people }}@endif class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                         </div>
                                                     </div>
                                                     <div class="relative w-8">
@@ -87,7 +87,7 @@
                                                 <div class="flex flex-wrap">
                                                     <div class="p-2 sm:w-1/5 w-2/5">
                                                         <label for="national_ranking" class="leading-7 text-sm text-gray-600">全国順位</label>
-                                                        <input type="number" id="national_ranking" name="national_ranking[]"  inputmode="number" value={{ $score->national_ranking }} class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <input type="number" id="national_ranking" name="national_ranking[]"  inputmode="number" @if(!is_null($score->national_ranking))value={{ $score->national_ranking }}@endif class='w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'>
                                                     </div>
                                                     <div class="relative w-4">
                                                         <span class="absolute bottom-2 text-sm align-text-bottom text-gray-600">位</span>
@@ -95,7 +95,7 @@
                                                     <div class="p-2 sm:w-1/5 w-2/5">
                                                         <div class="relative">
                                                             <label for="national_people" class="leading-7 text-sm text-gray-600">　</label>
-                                                            <input type="number" id="national_people" name="national_people[]" inputmode="number" value={{ $score->national_people }} class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                            <input type="number" id="national_people" name="national_people[]" inputmode="number" @if(!is_null($score->national_people))value={{ $score->national_people }}@endif class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                         </div>
                                                     </div>
                                                     <div class="relative w-8">
@@ -118,7 +118,7 @@
                                 {{-- 入力されたデータの送信ボタン --}}
                                 <div class="mt-4 p-2 w-full flex justify-around">
                                     <button type="button" onclick="location.href='{{ route('student.tests.index') }}'" class=" text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
-                                    <button type="submit" class=" text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">登録する</button>
+                                    <button type="submit" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">更新する</button>
                                 </div>
                             </form>
                         </div>

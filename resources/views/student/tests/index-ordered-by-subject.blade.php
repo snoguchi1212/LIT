@@ -18,16 +18,16 @@
                                 <div class="flex">
                                     <div class="mb-4">
                                         {{-- iconを入れる --}}
-                                        <button onclick="location.href='{{ route('student.tests.indexOrderedBySubject')}}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">科目ごと</button>
+                                        <button onclick="location.href='{{ route('student.tests.index') }}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">テストごと</button>
                                     </div>
                                     <div class="ml-auto mb-4">
                                         <button onclick="location.href='{{ route('student.tests.create') }}'" class="text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-lg">点数を登録する</button>
                                     </div>
                                 </div>
                             {{-- TODO:レスポンシブ対応 --}}
-                            @foreach ($tests as $test)
+                            @foreach ($subjects as $subject)
                                 <div class="studentTestContainer border-2 border-gray-300 sm:rounded-lg">
-                                    <div class="studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">{{ $test->title }}</div>
+                                    <div class="studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">{{ $subject->name }}</div>
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
                                             <tr>
@@ -41,9 +41,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($test->scores as $score)
+                                        @foreach ($subject->scores as $score)
                                             <tr>
-                                                <td class="px-4 py-3">{{ $score->subject->name }}</td>
+                                                <td class="px-4 py-3">{{ $score->test->title }}</td>
                                                 <td class="px-4 py-3">{{ $score->name }}</td>
                                                 <td class="px-4 py-3">{{ $score->score }}</td>
                                                 <td class="px-4 py-3 md:table-cell hidden">{{ $score->average_score }}</td>
@@ -54,9 +54,9 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="edit_btn m-2">
+                                    {{-- <div class="edit_btn m-2">
                                         <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">点数を編集する</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             @endforeach
                         </table>

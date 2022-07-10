@@ -83,5 +83,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     ;
   });
 }
+{
+  var onBeforeunloadHandler = function onBeforeunloadHandler(e) {
+    e.returnValue = "このページを離れると編集内容が破棄されます。";
+  };
+
+  window.addEventListener('beforeunload', onBeforeunloadHandler, false);
+  var form = document.getElementById('form');
+  form.addEventListener('keydown', function (event) {
+    if (event.keyCode === 13) {
+      // エンターキーが押されたときの動作
+      if (event.srcElement.type != 'submit') {
+        // submitボタン、テキストエリア以外の場合はイベントをキャンセル
+        return false;
+      }
+    }
+  });
+  form.addEventListener('submit', function () {
+    // イベントを削除
+    window.removeEventListener('beforeunload', onBeforeunloadHandler, false);
+  }, false);
+}
 /******/ })()
 ;

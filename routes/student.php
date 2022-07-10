@@ -31,8 +31,20 @@ Route::get('/dashboard', function () {
     return view('student.dashboard');
 })->middleware(['auth:students'])->name('dashboard');
 
-Route::resource('tests', TestsController::class)
+// Route::middleware('auth:students')->group(function () {
+    //     Route::get('tests/indexOrderedBySubject', [TestsController::class, 'indexOrderedBySubject'])
+    //                 ->name('tests.indexOrderedBySubject');
+    // });
+    Route::prefix('tests')
+        ->middleware('auth:students')->group(function () {
+        Route::get('indexOrderedBySubject', [TestsController::class, 'indexOrderedBySubject'])
+                    ->name('tests.indexOrderedBySubject');
+    });
+
+    Route::resource('tests', TestsController::class)
     ->middleware('auth:students');
+
+
 
 Route::middleware('guest:students')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
