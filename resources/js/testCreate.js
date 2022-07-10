@@ -4,10 +4,9 @@
 
     const addForm_btn = document.getElementById('addForm');
     const removeFormRoots = document.getElementById('scoreForms');
-    const scoreForm = document.getElementsByClassName('scoreForm');
 
     const upperLimit = 10
-    let i = scoreForm.length // フォームのカウンタ変数(初期値)
+    let i = 1 // フォームのカウンタ変数
 
     // 削除ボタンを削除する
     function hideRemoveButton() {
@@ -64,6 +63,8 @@
 
     };
 
+    // 読み込み時に追加
+    window.addEventListener('DOMContentLoaded',addForm);
     // ボタン押下時に追加
     addForm_btn.addEventListener('click',addForm);
 

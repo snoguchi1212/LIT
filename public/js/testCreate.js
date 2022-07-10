@@ -1,9 +1,9 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
-/*!**********************************!*\
-  !*** ./resources/js/testEdit.js ***!
-  \**********************************/
+/*!************************************!*\
+  !*** ./resources/js/testCreate.js ***!
+  \************************************/
  //　 入力フォームの追加・削除
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -19,7 +19,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 {
-  // フォームのカウンタ変数(初期値)
+  // フォームのカウンタ変数
   // 削除ボタンを削除する
   var hideRemoveButton = function hideRemoveButton() {
     var scoreFormButtons = document.getElementsByClassName('removeFormButton');
@@ -73,10 +73,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var addForm_btn = document.getElementById('addForm');
   var removeFormRoots = document.getElementById('scoreForms');
-  var scoreForm = document.getElementsByClassName('scoreForm');
   var upperLimit = 10;
-  var i = scoreForm.length;
-  ; // ボタン押下時に追加
+  var i = 1;
+  ; // 読み込み時に追加
+
+  window.addEventListener('DOMContentLoaded', addForm); // ボタン押下時に追加
 
   addForm_btn.addEventListener('click', addForm); // HACK:removeを使えば, もっと簡単になる
   // HACK:要素を取得する部分はもっと簡単に書けるのかな?
