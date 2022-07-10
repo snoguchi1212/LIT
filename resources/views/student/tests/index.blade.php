@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css\student\test\style.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            定期テスト点数 (テスト)
         </h2>
     </x-slot>
 

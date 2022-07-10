@@ -2,13 +2,6 @@
 //　 入力フォームの追加・削除
 {
 
-    const addForm_btn = document.getElementById('addForm');
-    const removeFormRoots = document.getElementById('scoreForms');
-    const scoreForm = document.getElementsByClassName('scoreForm');
-
-    const upperLimit = 10
-    let i = scoreForm.length // フォームのカウンタ変数(初期値)
-
     // 削除ボタンを削除する
     function hideRemoveButton() {
         const scoreFormButtons =document.getElementsByClassName('removeFormButton');
@@ -64,6 +57,16 @@
 
     };
 
+    const addForm_btn = document.getElementById('addForm');
+    const removeFormRoots = document.getElementById('scoreForms');
+    const scoreForm = document.getElementsByClassName('scoreForm');
+
+    const upperLimit = 10
+    let i = scoreForm.length // フォームのカウンタ変数(初期値)
+
+
+    if(i > 1){appearRemoveButton()};
+
     // ボタン押下時に追加
     addForm_btn.addEventListener('click',addForm);
 
@@ -90,7 +93,6 @@
         if (i < upperLimit) {appearAddButton()};
         if (i == 1) {hideRemoveButton()};
     });
-
 
 }
 
