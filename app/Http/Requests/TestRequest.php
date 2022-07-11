@@ -25,7 +25,8 @@ class TestRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.*' => ['required', 'string', 'max:16'],
+            'test' => ['required', 'string', 'max:20'],
+            'name.*' => ['required', 'string', 'max:20'],
             'test_id.*' => ['required', 'integer'],
             'subject_id.*' => ['required', 'integer'],
             'score.*' => ['integer', 'nullable'],

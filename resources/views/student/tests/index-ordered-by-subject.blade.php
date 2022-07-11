@@ -54,9 +54,6 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    {{-- <div class="edit_btn m-2">
-                                        <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">点数を編集する</button>
-                                    </div> --}}
                                 </div>
                             @endforeach
                         </table>

@@ -1,15 +1,10 @@
 'use strict'
 
 //　 入力フォームの追加・削除
+// HACK:ファイル分割
 {
 
-    const addForm_btn = document.getElementById('addForm');
-    const removeFormRoots = document.getElementById('scoreForms');
-
-    const upperLimit = 10
-    let i = 1 // フォームのカウンタ変数
-
-    const checkFirstDecimal = function (e) {
+    const checkFirstDecimalAlert = function (e) {
         var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/);
         // 判定
         if (regex.test(e.target.value) != true) {
@@ -19,17 +14,29 @@
         }
 
     }
+    const checkFirstDecimalClear = function (e) {
+        var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/);
+        // 判定
+        if (regex.test(e.target.value) != true) {
+            e.target.value = ""
+        } else {
+            e.target.value = ""
+        }
+
+    }
 
     function checkAverageScoreForms()
     {
         const averageScoreForms = document.getElementsByClassName("average");
 
         for(let i=0 ;i<averageScoreForms.length; i++){
-            averageScoreForms[i].removeEventListener('input', checkFirstDecimal);
+            averageScoreForms[i].removeEventListener('input', checkFirstDecimalAlert);
+            averageScoreForms[i].removeEventListener('change', checkFirstDecimalClear);
         }
 
         for(let i=0 ;i<averageScoreForms.length; i++){
-            averageScoreForms[i].addEventListener('input', checkFirstDecimal);
+            averageScoreForms[i].addEventListener('input', checkFirstDecimalAlert);
+            averageScoreForms[i].addEventListener('change', checkFirstDecimalClear);
         }
 
     }
@@ -37,16 +44,15 @@
     function checkDeviationValueForms()
     {
         const deviationValueForms = document.getElementsByClassName("deviation");
-        console.log(deviationValueForms.length);
 
         for(let i=0 ;i<deviationValueForms.length; i++){
-            deviationValueForms[i].removeEventListener('input', checkFirstDecimal);
-            deviationValueForms[i].removeEventListener('input', sliceMaxLength);
+            deviationValueForms[i].removeEventListener('input', checkFirstDecimalAlert);
+            deviationValueForms[i].removeEventListener('change', checkFirstDecimalClear);
         }
 
         for(let i=0 ;i<deviationValueForms.length; i++){
-            deviationValueForms[i].addEventListener('input', checkFirstDecimal);
-            deviationValueForms[i].addEventListener('input', sliceMaxLength);
+            deviationValueForms[i].addEventListener('input', checkFirstDecimalAlert);
+            deviationValueForms[i].addEventListener('change', checkFirstDecimalClear);
         }
 
     }
@@ -56,19 +62,26 @@
         checkDeviationValueForms();
     }
 
+    const addForm_btn = document.getElementById('addForm');
+    const removeFormRoots = document.getElementById('scoreForms');
+    const scoreForm = document.getElementsByClassName('scoreForm');
+
+    const upperLimit = 10
+    let i = scoreForm.length // フォームのカウンタ変数
+
     // 削除ボタンを削除する
     function hideRemoveButton() {
-        const scoreFormButtons =document.getElementsByClassName('removeFormButton');
-        [...scoreFormButtons].forEach(scoreFormButton => {
-            scoreFormButton.classList.add('hidden');
+        const removeFormButtons =document.getElementsByClassName('removeFormButton');
+        [...removeFormButtons].forEach(removeFormButton => {
+            removeFormButton.classList.add('hidden');
         });
     }
 
     // 削除ボタンを表示する
     function appearRemoveButton() {
-        const scoreFormButtons =document.getElementsByClassName('removeFormButton');
-        [...scoreFormButtons].forEach(scoreFormButton => {
-            scoreFormButton.classList.remove('hidden');
+        const removeFormButtons =document.getElementsByClassName('removeFormButton');
+        [...removeFormButtons].forEach(removeFormButton => {
+            removeFormButton.classList.remove('hidden');
         });
     }
 
@@ -91,7 +104,6 @@
 
     function addForm() {
             // 10個以上フォームがあるなら処理を終了
-            // TODO:メッセージが出るようにする
             if(i > upperLimit){
                 return true;
             }
@@ -103,9 +115,10 @@
             scoreForms.appendChild(templateScoreForm);
 
             checkForms();
-            appearRemoveButton();
-
             i++;
+            if(i > 1){
+                appearRemoveButton();
+            }
             if(i >= upperLimit){
                 hideAddButton();
             }
@@ -125,7 +138,6 @@
         if (i == 1) {
             return true;
         }
-
         let x = e.clientX;
         let y = e.clientY;
         let element = document.elementFromPoint(x, y);
@@ -135,7 +147,6 @@
 
         let targetRemoveForm = element.closest('.scoreForm')
         removeFormRoots.removeChild(targetRemoveForm);
-
         i--;
         if (i < upperLimit) {appearAddButton()};
         if (i == 1) {hideRemoveButton()};
@@ -169,17 +180,3 @@
     }, false);
 
 }
-
-{
-
-    // console.log(deviationValueForms);
-
-    // deviationValueForms.forEach(function(deviationValueForm) {
-    // console.log('hoge');
-
-    //     deviationValueForm.addEventListener('onchange', function() {
-    //     })
-    // });
-
-}
-

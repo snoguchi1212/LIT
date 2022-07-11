@@ -5,6 +5,7 @@ var __webpack_exports__ = {};
   !*** ./resources/js/testCreate.js ***!
   \************************************/
  //　 入力フォームの追加・削除
+// HACK:ファイル分割
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -23,51 +24,55 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var averageScoreForms = document.getElementsByClassName("average");
 
     for (var _i = 0; _i < averageScoreForms.length; _i++) {
-      averageScoreForms[_i].removeEventListener('input', checkFirstDecimal);
+      averageScoreForms[_i].removeEventListener('input', checkFirstDecimalAlert);
+
+      averageScoreForms[_i].removeEventListener('change', checkFirstDecimalClear);
     }
 
     for (var _i2 = 0; _i2 < averageScoreForms.length; _i2++) {
-      averageScoreForms[_i2].addEventListener('input', checkFirstDecimal);
+      averageScoreForms[_i2].addEventListener('input', checkFirstDecimalAlert);
+
+      averageScoreForms[_i2].addEventListener('change', checkFirstDecimalClear);
     }
   };
 
   var checkDeviationValueForms = function checkDeviationValueForms() {
     var deviationValueForms = document.getElementsByClassName("deviation");
-    console.log(deviationValueForms.length);
 
     for (var _i3 = 0; _i3 < deviationValueForms.length; _i3++) {
-      deviationValueForms[_i3].removeEventListener('input', checkFirstDecimal);
+      deviationValueForms[_i3].removeEventListener('input', checkFirstDecimalAlert);
 
-      deviationValueForms[_i3].removeEventListener('input', sliceMaxLength);
+      deviationValueForms[_i3].removeEventListener('change', checkFirstDecimalClear);
     }
 
     for (var _i4 = 0; _i4 < deviationValueForms.length; _i4++) {
-      deviationValueForms[_i4].addEventListener('input', checkFirstDecimal);
+      deviationValueForms[_i4].addEventListener('input', checkFirstDecimalAlert);
 
-      deviationValueForms[_i4].addEventListener('input', sliceMaxLength);
+      deviationValueForms[_i4].addEventListener('change', checkFirstDecimalClear);
     }
   };
 
   var checkForms = function checkForms() {
     checkAverageScoreForms();
     checkDeviationValueForms();
-  }; // 削除ボタンを削除する
+  };
 
-
+  // フォームのカウンタ変数
+  // 削除ボタンを削除する
   var hideRemoveButton = function hideRemoveButton() {
-    var scoreFormButtons = document.getElementsByClassName('removeFormButton');
+    var removeFormButtons = document.getElementsByClassName('removeFormButton');
 
-    _toConsumableArray(scoreFormButtons).forEach(function (scoreFormButton) {
-      scoreFormButton.classList.add('hidden');
+    _toConsumableArray(removeFormButtons).forEach(function (removeFormButton) {
+      removeFormButton.classList.add('hidden');
     });
   }; // 削除ボタンを表示する
 
 
   var appearRemoveButton = function appearRemoveButton() {
-    var scoreFormButtons = document.getElementsByClassName('removeFormButton');
+    var removeFormButtons = document.getElementsByClassName('removeFormButton');
 
-    _toConsumableArray(scoreFormButtons).forEach(function (scoreFormButton) {
-      scoreFormButton.classList.remove('hidden');
+    _toConsumableArray(removeFormButtons).forEach(function (removeFormButton) {
+      removeFormButton.classList.remove('hidden');
     });
   };
 
@@ -87,7 +92,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var addForm = function addForm() {
     // 10個以上フォームがあるなら処理を終了
-    // TODO:メッセージが出るようにする
     if (i > upperLimit) {
       return true;
     }
@@ -97,20 +101,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var scoreForms = document.getElementById('scoreForms');
     scoreForms.appendChild(templateScoreForm);
     checkForms();
-    appearRemoveButton();
     i++;
+
+    if (i > 1) {
+      appearRemoveButton();
+    }
 
     if (i >= upperLimit) {
       hideAddButton();
     }
   };
 
-  var addForm_btn = document.getElementById('addForm');
-  var removeFormRoots = document.getElementById('scoreForms');
-  var upperLimit = 10;
-  var i = 1; // フォームのカウンタ変数
-
-  var checkFirstDecimal = function checkFirstDecimal(e) {
+  var checkFirstDecimalAlert = function checkFirstDecimalAlert(e) {
     var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
 
     if (regex.test(e.target.value) != true) {
@@ -120,6 +122,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   };
 
+  var checkFirstDecimalClear = function checkFirstDecimalClear(e) {
+    var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.value = "";
+    } else {
+      e.target.value = "";
+    }
+  };
+
+  var addForm_btn = document.getElementById('addForm');
+  var removeFormRoots = document.getElementById('scoreForms');
+  var scoreForm = document.getElementsByClassName('scoreForm');
+  var upperLimit = 10;
+  var i = scoreForm.length;
   ; // 読み込み時に追加
 
   window.addEventListener('DOMContentLoaded', addForm); // ボタン押下時に追加
@@ -179,13 +196,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     // イベントを削除
     window.removeEventListener('beforeunload', onBeforeunloadHandler, false);
   }, false);
-}
-{// console.log(deviationValueForms);
-  // deviationValueForms.forEach(function(deviationValueForm) {
-  // console.log('hoge');
-  //     deviationValueForm.addEventListener('onchange', function() {
-  //     })
-  // });
 }
 /******/ })()
 ;

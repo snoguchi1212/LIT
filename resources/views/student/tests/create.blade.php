@@ -43,21 +43,21 @@
                                                 <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
                                                     <div class="p-2 mr-4">
                                                         <label for="score" class="leading-7 text-sm text-gray-600">点数<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                        <input type="number" id="score" name="score[]" inputmode="numeric" required class="sm:w-1/2 md:w-1/3 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <input type="number" id="score" name="score[]" inputmode="numeric" required class="sm:w-1/2 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                         <div class="error text-xs text-red-600 mt-2">入力できる値は, 0〜999の整数値です。</div>
                                                     </div>
                                                 </div>
                                             </div> {{-- mainForm --}}
                                             <div class="subForm m-2">
                                                 <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
-                                                    <div class="p-2 sm:w-1/2 w-full">
+                                                    <div class="p-2 mr-4 sm:w-1/2 w-full">
                                                         <label for="average_score" class="leading-7 text-sm text-gray-600">平均点 (小数第1位まで)</label><br>
-                                                        <input type="number" step="0.1" id="average_score" name="average_score[]" inputmode="decimal" pattern="(^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)" class="sm:w-1/3 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
+                                                        <input type="number" step="0.1" id="average_score" name="average_score[]" inputmode="decimal" pattern="(^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)" class="average sm:w-1/3 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
                                                         <div class="error text-xs text-red-600 mt-2">入力できる値は, 0〜999の小数第一位までの数字です。</div>
                                                     </div>
                                                     <div class="p-2 sm:w-1/2 w-full">
                                                         <div class="relative">
-                                                            <label for="deviation_value" class=" leading-7 text-sm text-gray-600">偏差値 (小数第1位まで)</label><br>
+                                                            <label for="deviation_value" class="leading-7 text-sm text-gray-600">偏差値 (小数第1位まで)</label><br>
                                                             <input type="number" step="0.1" name="deviation_value[]" inputmode="decimal" pattern="((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)" class="deviation sm:w-1/3 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
                                                             <div class="error text-xs text-red-600 mt-2">入力できる値は, 0〜999の小数第一位までの数字です。</div>
                                                         </div>
@@ -102,7 +102,7 @@
                                                             <span class="absolute bottom-2 text-sm align-text-bottom text-gray-600">人中</span>
                                                         </div>
                                                         <div class="p-2 ml-auto sm:mt-10 mt-4 mr-4">
-                                                            <a class="removeFormButton hidden cursor-pointer text-white bg-red-400 border-0 py-2 px-2 focus:outline-none hover:bg-red-500 rounded text-lg">削除</a>
+                                                            <a class="removeFormButton cursor-pointer hidden text-white bg-red-400 border-0 py-2 px-2 focus:outline-none hover:bg-red-500 rounded text-lg">削除</a>
                                                         </div>
                                                     </div>
                                                 </div>

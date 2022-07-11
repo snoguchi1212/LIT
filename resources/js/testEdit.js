@@ -2,19 +2,28 @@
 //　 入力フォームの追加・削除
 {
 
+    const addForm_btn = document.getElementById('addForm');
+    const removeFormRoots = document.getElementById('scoreForms');
+    const scoreForm = document.getElementsByClassName('scoreForm');
+
+    const upperLimit = 10
+    let i = scoreForm.length // フォームのカウンタ変数
+
+    if(i > 1){appearRemoveButton()};
+
     // 削除ボタンを削除する
     function hideRemoveButton() {
-        const scoreFormButtons =document.getElementsByClassName('removeFormButton');
-        [...scoreFormButtons].forEach(scoreFormButton => {
-            scoreFormButton.classList.add('hidden');
+        const removeFormButtons =document.getElementsByClassName('removeFormButton');
+        [...removeFormButtons].forEach(removeFormButton => {
+            removeFormButton.classList.add('hidden');
         });
     }
 
     // 削除ボタンを表示する
     function appearRemoveButton() {
-        const scoreFormButtons =document.getElementsByClassName('removeFormButton');
-        [...scoreFormButtons].forEach(scoreFormButton => {
-            scoreFormButton.classList.remove('hidden');
+        const removeFormButtons =document.getElementsByClassName('removeFormButton');
+        [...removeFormButtons].forEach(removeFormButton => {
+            removeFormButton.classList.remove('hidden');
         });
     }
 
@@ -37,7 +46,6 @@
 
     function addForm() {
             // 10個以上フォームがあるなら処理を終了
-            // TODO:メッセージが出るようにする
             if(i > upperLimit){
                 return true;
             }
@@ -48,24 +56,15 @@
             const scoreForms = document.getElementById('scoreForms');
             scoreForms.appendChild(templateScoreForm);
 
-            appearRemoveButton();
-
             i++;
+            if(i > 1){
+                appearRemoveButton();
+            }
             if(i >= upperLimit){
                 hideAddButton();
             }
 
     };
-
-    const addForm_btn = document.getElementById('addForm');
-    const removeFormRoots = document.getElementById('scoreForms');
-    const scoreForm = document.getElementsByClassName('scoreForm');
-
-    const upperLimit = 10
-    let i = scoreForm.length // フォームのカウンタ変数(初期値)
-
-
-    if(i > 1){appearRemoveButton()};
 
     // ボタン押下時に追加
     addForm_btn.addEventListener('click',addForm);
@@ -78,7 +77,6 @@
         if (i == 1) {
             return true;
         }
-
         let x = e.clientX;
         let y = e.clientY;
         let element = document.elementFromPoint(x, y);
@@ -88,7 +86,6 @@
 
         let targetRemoveForm = element.closest('.scoreForm')
         removeFormRoots.removeChild(targetRemoveForm);
-
         i--;
         if (i < upperLimit) {appearAddButton()};
         if (i == 1) {hideRemoveButton()};

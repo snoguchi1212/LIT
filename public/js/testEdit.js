@@ -21,19 +21,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 {
   // 削除ボタンを削除する
   var hideRemoveButton = function hideRemoveButton() {
-    var scoreFormButtons = document.getElementsByClassName('removeFormButton');
+    var removeFormButtons = document.getElementsByClassName('removeFormButton');
 
-    _toConsumableArray(scoreFormButtons).forEach(function (scoreFormButton) {
-      scoreFormButton.classList.add('hidden');
+    _toConsumableArray(removeFormButtons).forEach(function (removeFormButton) {
+      removeFormButton.classList.add('hidden');
     });
   }; // 削除ボタンを表示する
 
 
   var appearRemoveButton = function appearRemoveButton() {
-    var scoreFormButtons = document.getElementsByClassName('removeFormButton');
+    var removeFormButtons = document.getElementsByClassName('removeFormButton');
 
-    _toConsumableArray(scoreFormButtons).forEach(function (scoreFormButton) {
-      scoreFormButton.classList.remove('hidden');
+    _toConsumableArray(removeFormButtons).forEach(function (removeFormButton) {
+      removeFormButton.classList.remove('hidden');
     });
   };
 
@@ -53,7 +53,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var addForm = function addForm() {
     // 10個以上フォームがあるなら処理を終了
-    // TODO:メッセージが出るようにする
     if (i > upperLimit) {
       return true;
     }
@@ -62,25 +61,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var templateScoreForm = formTemplate.content.cloneNode(true);
     var scoreForms = document.getElementById('scoreForms');
     scoreForms.appendChild(templateScoreForm);
-    appearRemoveButton();
     i++;
+
+    if (i > 1) {
+      appearRemoveButton();
+    }
 
     if (i >= upperLimit) {
       hideAddButton();
     }
   };
 
-  ;
   var addForm_btn = document.getElementById('addForm');
   var removeFormRoots = document.getElementById('scoreForms');
   var scoreForm = document.getElementsByClassName('scoreForm');
   var upperLimit = 10;
-  var i = scoreForm.length; // フォームのカウンタ変数(初期値)
+  var i = scoreForm.length; // フォームのカウンタ変数
 
   if (i > 1) {
     appearRemoveButton();
   }
 
+  ;
   ; // ボタン押下時に追加
 
   addForm_btn.addEventListener('click', addForm); // HACK:removeを使えば, もっと簡単になる
