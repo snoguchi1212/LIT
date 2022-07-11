@@ -28,10 +28,11 @@ class TestRequest extends FormRequest
             'name.*' => ['required', 'string', 'max:16'],
             'test_id.*' => ['required', 'integer'],
             'subject_id.*' => ['required', 'integer'],
-            'score.*' => ['required', 'integer', 'nullable'],
+            'score.*' => ['integer', 'nullable'],
             'school_ranking.*' => ['integer', 'nullable'],
             'school_people.*' => ['integer', 'nullable'],
             'national_ranking.*' => ['integer', 'nullable'],
+            'national_people.*' => ['integer', 'nullable'],
             'deviation_value.*' => ['numeric', new FirstDecimalRule, 'nullable'],
             'average_score.*' => ['numeric', new FirstDecimalRule, 'nullable'],
         ];

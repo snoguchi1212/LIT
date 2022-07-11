@@ -19,8 +19,41 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 {
-  // フォームのカウンタ変数
-  // 削除ボタンを削除する
+  var checkAverageScoreForms = function checkAverageScoreForms() {
+    var averageScoreForms = document.getElementsByClassName("average");
+
+    for (var _i = 0; _i < averageScoreForms.length; _i++) {
+      averageScoreForms[_i].removeEventListener('input', checkFirstDecimal);
+    }
+
+    for (var _i2 = 0; _i2 < averageScoreForms.length; _i2++) {
+      averageScoreForms[_i2].addEventListener('input', checkFirstDecimal);
+    }
+  };
+
+  var checkDeviationValueForms = function checkDeviationValueForms() {
+    var deviationValueForms = document.getElementsByClassName("deviation");
+    console.log(deviationValueForms.length);
+
+    for (var _i3 = 0; _i3 < deviationValueForms.length; _i3++) {
+      deviationValueForms[_i3].removeEventListener('input', checkFirstDecimal);
+
+      deviationValueForms[_i3].removeEventListener('input', sliceMaxLength);
+    }
+
+    for (var _i4 = 0; _i4 < deviationValueForms.length; _i4++) {
+      deviationValueForms[_i4].addEventListener('input', checkFirstDecimal);
+
+      deviationValueForms[_i4].addEventListener('input', sliceMaxLength);
+    }
+  };
+
+  var checkForms = function checkForms() {
+    checkAverageScoreForms();
+    checkDeviationValueForms();
+  }; // 削除ボタンを削除する
+
+
   var hideRemoveButton = function hideRemoveButton() {
     var scoreFormButtons = document.getElementsByClassName('removeFormButton');
 
@@ -63,6 +96,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var templateScoreForm = formTemplate.content.cloneNode(true);
     var scoreForms = document.getElementById('scoreForms');
     scoreForms.appendChild(templateScoreForm);
+    checkForms();
     appearRemoveButton();
     i++;
 
@@ -74,7 +108,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   var addForm_btn = document.getElementById('addForm');
   var removeFormRoots = document.getElementById('scoreForms');
   var upperLimit = 10;
-  var i = 1;
+  var i = 1; // フォームのカウンタ変数
+
+  var checkFirstDecimal = function checkFirstDecimal(e) {
+    var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.nextElementSibling.nextElementSibling.classList.add('invalid');
+    } else {
+      e.target.nextElementSibling.nextElementSibling.classList.remove('invalid');
+    }
+  };
+
   ; // 読み込み時に追加
 
   window.addEventListener('DOMContentLoaded', addForm); // ボタン押下時に追加
@@ -134,6 +179,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     // イベントを削除
     window.removeEventListener('beforeunload', onBeforeunloadHandler, false);
   }, false);
+}
+{// console.log(deviationValueForms);
+  // deviationValueForms.forEach(function(deviationValueForm) {
+  // console.log('hoge');
+  //     deviationValueForm.addEventListener('onchange', function() {
+  //     })
+  // });
 }
 /******/ })()
 ;

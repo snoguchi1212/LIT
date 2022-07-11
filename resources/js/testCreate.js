@@ -1,4 +1,5 @@
 'use strict'
+
 //　 入力フォームの追加・削除
 {
 
@@ -7,6 +8,53 @@
 
     const upperLimit = 10
     let i = 1 // フォームのカウンタ変数
+
+    const checkFirstDecimal = function (e) {
+        var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/);
+        // 判定
+        if (regex.test(e.target.value) != true) {
+            e.target.nextElementSibling.nextElementSibling.classList.add('invalid');
+        } else {
+            e.target.nextElementSibling.nextElementSibling.classList.remove('invalid');
+        }
+
+    }
+
+    function checkAverageScoreForms()
+    {
+        const averageScoreForms = document.getElementsByClassName("average");
+
+        for(let i=0 ;i<averageScoreForms.length; i++){
+            averageScoreForms[i].removeEventListener('input', checkFirstDecimal);
+        }
+
+        for(let i=0 ;i<averageScoreForms.length; i++){
+            averageScoreForms[i].addEventListener('input', checkFirstDecimal);
+        }
+
+    }
+
+    function checkDeviationValueForms()
+    {
+        const deviationValueForms = document.getElementsByClassName("deviation");
+        console.log(deviationValueForms.length);
+
+        for(let i=0 ;i<deviationValueForms.length; i++){
+            deviationValueForms[i].removeEventListener('input', checkFirstDecimal);
+            deviationValueForms[i].removeEventListener('input', sliceMaxLength);
+        }
+
+        for(let i=0 ;i<deviationValueForms.length; i++){
+            deviationValueForms[i].addEventListener('input', checkFirstDecimal);
+            deviationValueForms[i].addEventListener('input', sliceMaxLength);
+        }
+
+    }
+
+    function checkForms() {
+        checkAverageScoreForms();
+        checkDeviationValueForms();
+    }
 
     // 削除ボタンを削除する
     function hideRemoveButton() {
@@ -54,6 +102,7 @@
             const scoreForms = document.getElementById('scoreForms');
             scoreForms.appendChild(templateScoreForm);
 
+            checkForms();
             appearRemoveButton();
 
             i++;
@@ -92,7 +141,6 @@
         if (i == 1) {hideRemoveButton()};
     });
 
-
 }
 
 {
@@ -121,3 +169,17 @@
     }, false);
 
 }
+
+{
+
+    // console.log(deviationValueForms);
+
+    // deviationValueForms.forEach(function(deviationValueForm) {
+    // console.log('hoge');
+
+    //     deviationValueForm.addEventListener('onchange', function() {
+    //     })
+    // });
+
+}
+

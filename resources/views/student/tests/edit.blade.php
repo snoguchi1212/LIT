@@ -11,12 +11,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 mx-auto">
-                            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                            <div class="lg:w-1/2 md:w-9/12 mx-auto">
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
                             <form id="form" method="post" action="{{ route('student.tests.update', ['test' => $test->id]) }}">
                             @csrf
                             @method('put')
-                                <div class="p-2 -m-2 w-3/4">
+                                <div class="p-2 mr-2 w-3/4">
                                     <label for="title" class="leading-7 text-sm text-gray-600">テスト名</label>
                                     <input type="text" id="title" name="title[]" value="{{ $test->title }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
@@ -25,40 +25,42 @@
                                         <div class="scoreForm my-4 border-solid border-t border-gray-400">
                                             <div class="mainForm m-2">
                                                 <div class="md:flex flex-wrap -m-2 ml-0 mt-0">
-                                                    <div class="p-2 mr-8 w-1/4">
+                                                    <div class="p-2 mr-8 sm:w-2/5 w-full">
                                                         <label for="subject_id" class="leading-7 text-sm text-gray-600">教科<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                        <select id="subject_id" name="subject_id[]">
+                                                        <select id="subject_id" name="subject_id[]" required>
                                                             @foreach ($subjects as $subject )
                                                             <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    <div class="p-2 mr-10 w-2/5">
+                                                    <div class="p-2 mr-10 sm:w-2/5 w-full">
                                                         <div class="relative">
                                                             <label for="name" class="leading-7 text-sm text-gray-600">科目名<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                            <input type="text" id="name" name="name[]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                            <input type="text" id="name" name="name[]" required class="w-10/12 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
-                                                    <div class="p-2 mr-4 sm:w-1/5 w-2/5">
+                                                    <div class="p-2 mr-4">
                                                         <label for="score" class="leading-7 text-sm text-gray-600">点数<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                        <input type="number" id="score" name="score[]"  inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <input type="number" id="score" name="score[]" inputmode="numeric" required class="sm:w-1/2 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     </div>
                                                 </div>
                                             </div> {{-- mainForm --}}
                                             <div class="subForm m-2">
                                                 <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
-                                                    <div class="p-2 mr-4 sm:w-1/5 w-2/5">
+                                                    <div class="p-2 mr-4 sm:w-1/2 w-full">
                                                         <label for="average_score" class="leading-7 text-sm text-gray-600">平均点</label><br>
-                                                        <input type="number" step="0.1" id="average_score" name="average_score[]"  inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
+                                                        <input type="number" step="0.1" id="average_score" name="average_score[]"  inputmode="decimal" pattern="(^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)"  class="sm:w-1/3 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
                                                         <span class="text-gray-600 text-xs">(小数第1位)</span></label>
+                                                        <div class="error text-xs text-red-600 mt-2">入力できる値は, 0〜999の小数第一位までの数字です。</div>
                                                     </div>
-                                                    <div class="p-2 sm:w-1/5 w-2/5">
+                                                    <div class="p-2 sm:w-1/2 w-full">
                                                         <div class="relative">
-                                                            <label for="deviation_value" class="leading-7 text-sm text-gray-600">偏差値</label>
-                                                            <input type="number" step="0.1" id="deviation_value" name="deviation_value[]" inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                            <label for="deviation_value" class="leading-7 text-sm text-gray-600">偏差値</label><br>
+                                                            <input type="number" step="0.1" id="deviation_value" name="deviation_value[]" inputmode="decimal" pattern="((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)" class="deviation sm:w-1/3 w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
                                                             <span class="text-gray-600 text-xs">(小数第1位)</span></label>
+                                                            <div class="error text-xs text-red-600 mt-2">入力できる値は, 0〜999の小数第一位までの数字です。</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -114,8 +116,8 @@
                                             <div class="md:flex flex-wrap -m-2 ml-0 mt-0">
                                                 <div class="p-2 mr-8 w-1/4">
                                                     <label for="subject_id" class="leading-7 text-sm text-gray-600">教科<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                    <select id="subject_id" name="subject_id[]">
-                                                        @foreach ($subjects as $subject )
+                                                    <select id="subject_id" name="subject_id[]" required>
+                                                        @foreach ($subjects as $subject)
                                                         <option value="{{ $subject->id }}" @if( $score->subject_id === $subject->id ) selected @endif>{{ $subject->name }}</option>
                                                         @endforeach
                                                     </select>
@@ -123,23 +125,22 @@
                                                 <div class="p-2 mr-10 w-2/5">
                                                     <div class="relative">
                                                         <label for="name" class="leading-7 text-sm text-gray-600">科目名<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                        <input type="text" id="name" name="name[]" value={{ $score->name }} class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <input type="text" id="name" name="name[]" required value={{ $score->name }} class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
                                                 <div class="p-2 mr-4 sm:w-1/5 w-2/5">
                                                     <label for="score" class="leading-7 text-sm text-gray-600">点数<span class="text-red-500 text-xs">【必須】</span></label><br>
-                                                    <input type="number" id="score" name="score[]" value={{ $score->score }} inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    <input type="number" id="score" name="score[]" value={{ $score->score }} inputmode="numeric" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                 </div>
                                             </div>
-                                        </div>
-                                    {{-- mainForm --}}
+                                        </div>  {{-- mainForm --}}
                                         <div class="subForm m-2">
                                             <div class="md:flex flex-wrap -m-2 ml-0  mt-0">
                                                 <div class="p-2 mr-4 sm:w-1/5 w-2/5">
                                                     <label for="average_score" class="leading-7 text-sm text-gray-600">平均点</label><br>
-                                                    <input type="number" step="0.1" id="average_score" name="average_score[]" @if(!is_null($score->average_score))value={{ $score->average_score }}@endif inputmode="decimal" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
+                                                    <input type="number" step="0.1" id="average_score" name="average_score[]" inputmode="decimal" @if(!is_null($score->average_score))value={{ $score->average_score }}@endif class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br>
                                                     <span class="text-gray-600 text-xs">(小数第1位)</span></label>
                                                 </div>
                                                 <div class="p-2 sm:w-1/5 w-2/5">
