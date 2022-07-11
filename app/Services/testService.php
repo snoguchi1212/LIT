@@ -22,7 +22,7 @@ class TestService
             $q->orderBy('subject_id');
         }, 'scores.subject:id,name'])
         ->where('student_id', $studentId)
-        ->orderBy('title'); //#TODO:testに実施日を追加してそれを基準に並び替えられるようにする
+        ->orderBy('start_date'); //#TODO:testに実施日を追加してそれを基準に並び替えられるようにする
 
         $tests = $query->get();
 
@@ -38,7 +38,7 @@ class TestService
         $query = Subject::with(['scores' => function($q)use($studentId){
             $q->leftJoin('tests', 'scores.test_id', '=', 'tests.id')
                 ->where('student_id', '=', $studentId)
-                ->orderBy('title'); //#TODO:testに実施日を追加してそれを基準に並び替えられるようにする
+                ->orderBy('start_date'); //#TODO:testに実施日を追加してそれを基準に並び替えられるようにする
         },'scores.test:id,title']);
 
         $subjects=$query->get();

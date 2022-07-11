@@ -16,9 +16,13 @@ class TestFactory extends Factory
      */
     public function definition()
     {
+        $scheduled_date = $this->faker->dateTimeBetween('-2 years', 'now', 'Asia/Tokyo');
+
         return [
             'student_id' => $this->faker->numberBetween(1, 4),
-            'title' => $this->faker->word(),
+            'title' => $this->faker->text(16),
+            'start_date' => $scheduled_date->format('Y-m-d'),
+            'end_date' => $scheduled_date->modify(strval(random_int(0,5)).'day')->format('Y-m-d'),
         ];
     }
 }

@@ -5,6 +5,7 @@ var __webpack_exports__ = {};
   !*** ./resources/js/testEdit.js ***!
   \**********************************/
  //　 入力フォームの追加・削除
+// HACK:ファイル分割
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -19,6 +20,77 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 {
+  var checkAverageScoreForms = function checkAverageScoreForms() {
+    var averageScoreForms = document.getElementsByClassName("average");
+
+    for (var _i = 0; _i < averageScoreForms.length; _i++) {
+      averageScoreForms[_i].removeEventListener('input', checkFirstDecimalAlert);
+
+      averageScoreForms[_i].removeEventListener('change', checkFirstDecimalClear);
+    }
+
+    for (var _i2 = 0; _i2 < averageScoreForms.length; _i2++) {
+      averageScoreForms[_i2].addEventListener('input', checkFirstDecimalAlert);
+
+      averageScoreForms[_i2].addEventListener('change', checkFirstDecimalClear);
+    }
+  };
+
+  var checkDeviationValueForms = function checkDeviationValueForms() {
+    var deviationValueForms = document.getElementsByClassName("deviation");
+
+    for (var _i3 = 0; _i3 < deviationValueForms.length; _i3++) {
+      deviationValueForms[_i3].removeEventListener('input', checkFirstDecimalAlert);
+
+      deviationValueForms[_i3].removeEventListener('change', checkFirstDecimalClear);
+    }
+
+    for (var _i4 = 0; _i4 < deviationValueForms.length; _i4++) {
+      deviationValueForms[_i4].addEventListener('input', checkFirstDecimalAlert);
+
+      deviationValueForms[_i4].addEventListener('change', checkFirstDecimalClear);
+    }
+  };
+  /**
+   * 7桁の確認->できていなければ, 文字を消す
+  */
+
+
+  var checkRankingForms = function checkRankingForms() {
+    var rankingForms = document.getElementsByClassName('ranking');
+
+    for (var _i5 = 0; _i5 < rankingForms.length; _i5++) {
+      rankingForms[_i5].removeEventListener('input', checkRankingSlice);
+    }
+
+    for (var _i6 = 0; _i6 < rankingForms.length; _i6++) {
+      rankingForms[_i6].addEventListener('input', checkRankingSlice);
+    }
+  };
+  /**
+   * 7桁の確認->できていなければ, 文字を消す
+  */
+
+
+  var checkScoreForms = function checkScoreForms() {
+    var rankingForms = document.getElementsByClassName('score');
+
+    for (var _i7 = 0; _i7 < rankingForms.length; _i7++) {
+      rankingForms[_i7].removeEventListener('input', checkScore);
+    }
+
+    for (var _i8 = 0; _i8 < rankingForms.length; _i8++) {
+      rankingForms[_i8].addEventListener('input', checkScore);
+    }
+  };
+
+  var checkForms = function checkForms() {
+    checkAverageScoreForms();
+    checkDeviationValueForms();
+    checkRankingForms();
+    checkScoreForms();
+  };
+
   // 削除ボタンを削除する
   var hideRemoveButton = function hideRemoveButton() {
     var removeFormButtons = document.getElementsByClassName('removeFormButton');
@@ -61,6 +133,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var templateScoreForm = formTemplate.content.cloneNode(true);
     var scoreForms = document.getElementById('scoreForms');
     scoreForms.appendChild(templateScoreForm);
+    checkForms();
     i++;
 
     if (i > 1) {
@@ -69,6 +142,53 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     if (i >= upperLimit) {
       hideAddButton();
+    }
+  };
+
+  /**
+   * 3桁.1桁の確認->できていなければ, invalid属性をつける
+  */
+  var checkFirstDecimalAlert = function checkFirstDecimalAlert(e) {
+    var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.nextElementSibling.nextElementSibling.classList.add('invalid');
+    } else {
+      e.target.nextElementSibling.nextElementSibling.classList.remove('invalid');
+    }
+  };
+  /**
+   * 3桁.1桁の確認->できていなければ, 文字を消す
+  */
+
+
+  var checkFirstDecimalClear = function checkFirstDecimalClear(e) {
+    var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.value = "";
+    } else {}
+  };
+
+  var checkRankingSlice = function checkRankingSlice(e) {
+    var regex = new RegExp(/^[0-9]{0,7}$/); // console.log(e.target.value);
+    // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.value = e.target.value.slice(0, 7);
+    } else {
+      e.target.value = e.target.value.slice(0, 7);
+    }
+  };
+
+  var checkScore = function checkScore(e) {
+    var regex = new RegExp(/^[0-9]{0,4}$/); // console.log(e.target.value);
+    // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.value = e.target.value.slice(0, 4);
+    } else {
+      e.target.value = e.target.value.slice(0, 4);
     }
   };
 
@@ -83,7 +203,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   }
 
   ;
-  ; // ボタン押下時に追加
+  ;
+  window.addEventListener('DOMContentLoaded', checkForms); // ボタン押下時に追加
 
   addForm_btn.addEventListener('click', addForm); // HACK:removeを使えば, もっと簡単になる
   // HACK:要素を取得する部分はもっと簡単に書けるのかな?

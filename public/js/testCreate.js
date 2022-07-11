@@ -51,10 +51,44 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       deviationValueForms[_i4].addEventListener('change', checkFirstDecimalClear);
     }
   };
+  /**
+   * 7桁の確認->できていなければ, 文字を消す
+  */
+
+
+  var checkRankingForms = function checkRankingForms() {
+    var rankingForms = document.getElementsByClassName('ranking');
+
+    for (var _i5 = 0; _i5 < rankingForms.length; _i5++) {
+      rankingForms[_i5].removeEventListener('input', checkRankingSlice);
+    }
+
+    for (var _i6 = 0; _i6 < rankingForms.length; _i6++) {
+      rankingForms[_i6].addEventListener('input', checkRankingSlice);
+    }
+  };
+  /**
+   * 7桁の確認->できていなければ, 文字を消す
+  */
+
+
+  var checkScoreForms = function checkScoreForms() {
+    var rankingForms = document.getElementsByClassName('score');
+
+    for (var _i7 = 0; _i7 < rankingForms.length; _i7++) {
+      rankingForms[_i7].removeEventListener('input', checkScore);
+    }
+
+    for (var _i8 = 0; _i8 < rankingForms.length; _i8++) {
+      rankingForms[_i8].addEventListener('input', checkScore);
+    }
+  };
 
   var checkForms = function checkForms() {
     checkAverageScoreForms();
     checkDeviationValueForms();
+    checkRankingForms();
+    checkScoreForms();
   };
 
   // フォームのカウンタ変数
@@ -112,6 +146,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   };
 
+  /**
+   * 3桁.1桁の確認->できていなければ, invalid属性をつける
+  */
   var checkFirstDecimalAlert = function checkFirstDecimalAlert(e) {
     var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
 
@@ -121,14 +158,38 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       e.target.nextElementSibling.nextElementSibling.classList.remove('invalid');
     }
   };
+  /**
+   * 3桁.1桁の確認->できていなければ, 文字を消す
+  */
+
 
   var checkFirstDecimalClear = function checkFirstDecimalClear(e) {
     var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
 
     if (regex.test(e.target.value) != true) {
       e.target.value = "";
+    } else {}
+  };
+
+  var checkRankingSlice = function checkRankingSlice(e) {
+    var regex = new RegExp(/^[0-9]{0,7}$/); // console.log(e.target.value);
+    // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.value = e.target.value.slice(0, 7);
     } else {
-      e.target.value = "";
+      e.target.value = e.target.value.slice(0, 7);
+    }
+  };
+
+  var checkScore = function checkScore(e) {
+    var regex = new RegExp(/^[0-9]{0,4}$/); // console.log(e.target.value);
+    // 判定
+
+    if (regex.test(e.target.value) != true) {
+      e.target.value = e.target.value.slice(0, 4);
+    } else {
+      e.target.value = e.target.value.slice(0, 4);
     }
   };
 

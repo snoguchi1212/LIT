@@ -3,7 +3,9 @@
 //　 入力フォームの追加・削除
 // HACK:ファイル分割
 {
-
+    /**
+     * 3桁.1桁の確認->できていなければ, invalid属性をつける
+    */
     const checkFirstDecimalAlert = function (e) {
         var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/);
         // 判定
@@ -14,13 +16,16 @@
         }
 
     }
+
+    /**
+     * 3桁.1桁の確認->できていなければ, 文字を消す
+    */
     const checkFirstDecimalClear = function (e) {
         var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/);
         // 判定
         if (regex.test(e.target.value) != true) {
             e.target.value = ""
         } else {
-            e.target.value = ""
         }
 
     }
@@ -57,9 +62,68 @@
 
     }
 
+    /**
+     * 7桁の確認->できていなければ, 文字を消す
+    */
+    const checkRankingSlice = function (e) {
+        var regex = new RegExp(/^[0-9]{0,7}$/);
+        // console.log(e.target.value);
+        // 判定
+        if (regex.test(e.target.value) != true) {
+            e.target.value = e.target.value.slice(0, 7)
+        } else {
+            e.target.value = e.target.value.slice(0, 7)
+        }
+
+    }
+
+    function checkRankingForms()
+    {
+        const rankingForms = document.getElementsByClassName('ranking');
+
+        for(let i=0 ;i<rankingForms.length; i++){
+            rankingForms[i].removeEventListener('input', checkRankingSlice);
+        }
+
+        for(let i=0 ;i<rankingForms.length; i++){
+            rankingForms[i].addEventListener('input', checkRankingSlice);
+        }
+
+    }
+
+    /**
+     * 7桁の確認->できていなければ, 文字を消す
+    */
+    const checkScore = function (e) {
+        var regex = new RegExp(/^[0-9]{0,4}$/);
+        // console.log(e.target.value);
+        // 判定
+        if (regex.test(e.target.value) != true) {
+            e.target.value = e.target.value.slice(0, 4)
+        } else {
+            e.target.value = e.target.value.slice(0, 4)
+        }
+
+    }
+
+    function checkScoreForms()
+    {
+        const rankingForms = document.getElementsByClassName('score');
+
+        for(let i=0 ;i<rankingForms.length; i++){
+            rankingForms[i].removeEventListener('input', checkScore);
+        }
+
+        for(let i=0 ;i<rankingForms.length; i++){
+            rankingForms[i].addEventListener('input', checkScore);
+        }
+
+    }
     function checkForms() {
         checkAverageScoreForms();
         checkDeviationValueForms();
+        checkRankingForms();
+        checkScoreForms();
     }
 
     const addForm_btn = document.getElementById('addForm');
@@ -101,27 +165,25 @@
         unableAddFormButton.classList.add('hidden');
     }
 
-
     function addForm() {
-            // 10個以上フォームがあるなら処理を終了
-            if(i > upperLimit){
-                return true;
-            }
-            const formTemplate = document.getElementById('form-template');
-            const templateScoreForm = formTemplate.content.cloneNode(true);
+        // 10個以上フォームがあるなら処理を終了
+        if(i > upperLimit){
+            return true;
+        }
+        const formTemplate = document.getElementById('form-template');
+        const templateScoreForm = formTemplate.content.cloneNode(true);
 
+        const scoreForms = document.getElementById('scoreForms');
+        scoreForms.appendChild(templateScoreForm);
 
-            const scoreForms = document.getElementById('scoreForms');
-            scoreForms.appendChild(templateScoreForm);
-
-            checkForms();
-            i++;
-            if(i > 1){
-                appearRemoveButton();
-            }
-            if(i >= upperLimit){
-                hideAddButton();
-            }
+        checkForms();
+        i++;
+        if(i > 1){
+            appearRemoveButton();
+        }
+        if(i >= upperLimit){
+            hideAddButton();
+        }
 
     };
 
