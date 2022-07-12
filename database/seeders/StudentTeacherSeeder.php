@@ -23,7 +23,6 @@ class StudentTeacherSeeder extends Seeder
             // studentsとteachersテーブルのidカラムをランダムに並び替え、先頭の値を取得
             $set_student_id = Student::select('id')->inRandomOrder()->first()->id;
 
-            // $set_teacher_id = Teacher::select('id')->inRandomOrder()->first()->id;
             $set_teacher_id = Teacher::select('id')->inRandomOrder()->first()->id;
 
             // クエリビルダを利用し、上記のモデルから取得した値が、現在までの複合主キーと重複するかを確認

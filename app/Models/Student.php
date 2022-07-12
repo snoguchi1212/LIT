@@ -50,4 +50,8 @@ class Student extends Authenticatable
     public function test(){
         return $this->hasMany(Test::class, 'test_id');
     }
+
+    public function teachers() {
+        return $this->belongsToMany(Teacher::class);
+    }
 }
