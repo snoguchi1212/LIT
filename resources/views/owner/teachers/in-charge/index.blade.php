@@ -23,6 +23,7 @@
                             <tr>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">名前</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">ナマエ</th>
+                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">科目</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
@@ -34,6 +35,7 @@
                             <tr>
                                 <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
                                 <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
+                                <td class="px-4 py-3">{{ $subjects->find($student->pivot->subject_id)->name }}</td>
                                 <td class="px-4 py-3">
                                     <button onclick="location.href='{{ route('owner.teachers.studentsInCharge.index', [$teacher->id]) }}'" type="submit" class=" text-white bg-blue-400 border-0 py-2 px-4 focus:outline-none hover:bg-blue-500 rounded ">担当生徒</button>
                                 </td>

@@ -43,7 +43,7 @@ class Teacher extends Authenticatable
     ];
 
     public function students() {
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(Student::class)->withPivot('subject_id');
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use App\Models\Subject;
 
 class StudentsInChargeController extends Controller
 {
@@ -19,7 +20,9 @@ class StudentsInChargeController extends Controller
         $teacher = Teacher::findOrFail($id);
         $students = $teacher->students();
 
+        $subjects =  Subject::select('id', 'name')->get();
+
         return view('owner.teachers.in-charge.index',
-        compact('teacher'));
+        compact('teacher', 'subjects'));
     }
 }
