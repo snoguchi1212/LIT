@@ -25,18 +25,19 @@
                             </thead>
                             <tbody>
                             {{-- #TODO:showメソッドの追加 --}}
-                            @foreach ($leavedStudents as $student)
+                            @foreach ($leavedTeachers as $teacher)
                             <tr>
-                                <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
-                                <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
-                                <td class="px-4 py-3">{{ $student->deleted_at->diffForHumans() }}</td>
+                                <td class="px-4 py-3">{{ $teacher->family_name }} {{ $teacher->first_name }}</td>
+                                <td class="px-4 py-3">{{ $teacher->family_name_kana }} {{ $teacher->first_name_kana }}</td>
+                                <td class="px-4 py-3">{{ $teacher->deleted_at->diffForHumans() }}</td>
                                 <td class="px-4 py-3">
-                                <button onclick="location.href='{{ route('owner.students.edit', [$student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
+                                {{-- #TODO:復元できるように --}}
+                                <button onclick="location.href='{{ route('owner.teachers.edit', [$teacher->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
                                 </td>
-                                <form id="delete_{{ $student->id }}" method="post" action="{{ route('owner.leaved-students.destroy', [$student->id]) }}">
+                                <form id="delete_{{ $teacher->id }}" method="post" action="{{ route('owner.leaved-teachers.destroy', [$teacher->id]) }}">
                                     @csrf
                                     <td class="px-4 py-3">
-                                        <a href="#" data-id="{{ $student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
+                                        <a href="#" data-id="{{ $teacher->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
                                     </td>
                                 </form>
                             </tr>
