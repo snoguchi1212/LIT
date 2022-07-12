@@ -11,7 +11,7 @@ use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\StudentsController;
 use App\Http\Controllers\Owner\TeachersController;
-
+use App\Http\Controllers\Owner\StudentsInChargeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +37,6 @@ Route::prefix('students/tests', StudentsController::class)
         Route::get('postCSV',  [StudentsController::class, 'postCSV'])->name('students.tests.postCSV');
     });
 
-
 Route::resource('students', StudentsController::class)
     ->middleware('auth:owner');
 
@@ -45,6 +44,11 @@ Route::prefix('leaved-students')->
 middleware('auth:owner')->group(function(){
     Route::get('index', [StudentsController::class, 'leavedStudentsIndex'])->name('leaved-students.index');
     Route::post('destroy/{student}', [StudentsController::class, 'leavedStudentsDestroy'])->name('leaved-students.destroy');
+});
+
+Route::prefix('teachers/studentsInCharge')->
+middleware('auth:owner')->group(function(){
+    Route::get('index/{teacher}', [StudentsInChargeController::class, 'index'])->name('teachers.studentsInCharge.index');
 });
 
 Route::resource('teachers', TeachersController::class)

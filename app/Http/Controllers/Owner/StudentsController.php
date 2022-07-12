@@ -219,7 +219,7 @@ class StudentsController extends Controller
         };
 
         // 保存するファイル名
-        $filename = sprintf('scores-%s.txt', date('Ymd'));
+        $filename = sprintf('scores-%s.csv', date('Ymd'));
 
         // ファイルダウンロードさせるために、ヘッダー出力を調整
         $header = [
