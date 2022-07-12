@@ -147,4 +147,87 @@ class StudentsController extends Controller
         ->route('owner.leaved-students.index');
 
     }
+
+    // コントローラーの1メソッドとして実装
+    public function postCSV()
+    {
+        // $students = Student::orderBy('id', 'desc');
+
+        // foreach($students->cursor() as $student){
+        //     $tests = $student->tests()->first();
+        //     foreach($tests->cursor() as $test){
+        //         $scores = $test->scores();
+        //         foreach($scores->cursor() as $score){
+        //             dd();
+        //         }
+        //     }
+        // }
+
+
+        // コールバック関数に１行ずつ書き込んでいく処理を記述
+        $callback = function () {
+            // 出力バッファをopen
+            $stream = fopen('php://output', 'w');
+            // 文字コードをShift-JISに変換
+            stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT');
+            // ヘッダー行
+            fputcsv($stream, [
+                'ID',
+                '姓',
+                '名',
+                'セイ',
+                'メイ',
+                'テスト名',
+                '教科名',
+                '教科',
+                '点数',
+                '平均点',
+                '校内順位',
+                '校内人数',
+            ]);
+            // データ
+            // $students = Student::orderByRaw('grade asc', 'family_name_kana asc', 'first_name_kana asc');
+            $students = Student::orderBy('grade', 'asc')
+                ->orderBy('family_name_kana', 'asc')
+                ->orderBy('first_name_kana', 'asc');
+            // ２行目以降の出力
+            // cursor()メソッドで１レコードずつストリームに流す処理を実現できる。
+            foreach ($students->cursor() as $student) {
+                $tests = $student->tests();
+                foreach($tests->cursor() as $test) {
+                    $scores = $test->scores();
+                    foreach($scores->cursor() as $score) {
+                        fputcsv($stream, [
+                            $student->id,
+                            $student->family_name,
+                            $student->first_name,
+                            $student->family_name_kana,
+                            $student->first_name_kana,
+                            $test->title,
+                            $score->name,
+                            $score->subject()->first()->name,
+                            $score->score,
+                            $score->average_score,
+                            $score->school_ranking,
+                            $score->school_people,
+                        ]);
+                    }
+                }
+            }
+
+        fclose($stream);
+        };
+
+        // 保存するファイル名
+        $filename = sprintf('scores-%s.txt', date('Ymd'));
+
+        // ファイルダウンロードさせるために、ヘッダー出力を調整
+        $header = [
+            'Content-Type' => 'application/octet-stream',
+        ];
+
+        return response()->streamDownload($callback, $filename, $header);
+        // ->redirect()
+        // ->route('owner.leaved-students.index');
+    }
 }

@@ -32,6 +32,12 @@ Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owner'])->name('dashboard');
 
+Route::prefix('students/tests', StudentsController::class)
+    ->middleware('auth:owner')->group(function(){
+        Route::get('postCSV',  [StudentsController::class, 'postCSV'])->name('students.tests.postCSV');
+    });
+
+
 Route::resource('students', StudentsController::class)
     ->middleware('auth:owner');
 

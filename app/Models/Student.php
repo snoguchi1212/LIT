@@ -47,8 +47,8 @@ class Student extends Authenticatable
     ];
 
 
-    public function test(){
-        return $this->hasMany(Test::class, 'test_id');
+    public function tests(){
+        return $this->hasMany(Test::class);
     }
 
     public function teachers() {
