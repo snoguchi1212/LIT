@@ -48,7 +48,7 @@
                             </div>
                         </button>
                     </x-slot>
-
+                    {{-- #TODO:編集 --}}
                     <x-slot name="content">
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('owner.logout') }}">
