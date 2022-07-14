@@ -13,6 +13,7 @@ use Goodby\CSV\Import\Standard\LexerConfig;
 use Goodby\CSV\Import\Standard\Lexer;
 use Goodby\CSV\Import\Standard\Interpreter;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Services\TestService;
 
 class StudentsController extends Controller
 {
@@ -171,8 +172,9 @@ class StudentsController extends Controller
     public function show($id)
     {
         $student = Student::findOrFail($id);
+        $tests = TestService::groupedByTest($id);
 
-        return view('owner.students.show', compact('student'));
+        return view('owner.students.show', compact('student', 'tests'));
     }
 
     /**
