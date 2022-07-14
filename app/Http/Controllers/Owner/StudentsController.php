@@ -177,6 +177,15 @@ class StudentsController extends Controller
         return view('owner.students.show', compact('student', 'tests'));
     }
 
+    public function showOrderedBySubject($studentId)
+    {
+        $student = Student::findOrFail($studentId);
+        $subjects = TestService::groupedBySubject($studentId);
+
+        return view('owner.students.show-ordered-by-subject',
+        compact('student', 'subjects'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

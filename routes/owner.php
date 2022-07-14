@@ -41,6 +41,8 @@ Route::prefix('students', StudentsController::class)
 Route::prefix('students/tests', StudentsController::class)
     ->middleware('auth:owner')->group(function(){
         Route::get('postCSV',  [StudentsController::class, 'postCSV'])->name('students.tests.postCSV');
+        Route::get('showOrderedBySubject/{student}', [StudentsController::class, 'showOrderedBySubject'])->name('students.tests.showOrderedBySubject');
+
     });
 
 Route::resource('students', StudentsController::class)

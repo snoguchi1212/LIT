@@ -15,7 +15,12 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-10/12 w-full mx-auto overflow-auto">
-                                {{-- TODO:科目ごとの並び替え --}}
+                                <div class="flex">
+                                    <div class="mb-4">
+                                        {{-- iconを入れる --}}
+                                        <button onclick="location.href='{{ route('teacher.studentsInCharge.showOrderBySubject', [$student->id]) }}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">科目ごと</button>
+                                    </div>
+                                </div>
                             {{-- TODO:レスポンシブ対応 --}}
                             @foreach ($tests as $test)
                                 <div class="studentTestContainer first:mb-2 border-2 border-gray-300 sm:rounded-lg">
