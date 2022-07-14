@@ -2,8 +2,11 @@
     {{-- #TODO:sidebarの実装 --}}
     {{-- <x-app-side-bar></x-app-side-bar> --}}
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="flex font-semibold sm:text-xl text-lg text-gray-800 leading-tight">
             生徒管理
+            <button onclick="location.href='{{ route('owner.students.tests.postCSV') }}'" class="text-white bg-blue-500 border-0 ml-auto py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-base">CSVを出力する</button>
+            <button onclick="location.href='{{ route('owner.leaved-students.index') }}'" class="text-white bg-purple-500 border-0 ml-4 py-2 px-4 focus:outline-none hover:bg-purple-600 rounded text-base">削除済生徒</button>
+            <button onclick="location.href='{{ route('owner.students.create') }}'" class="text-white bg-green-500 border-0 ml-4 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-base">新規登録する</button>
         </h2>
     </x-slot>
 
@@ -16,9 +19,6 @@
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('owner.students.tests.postCSV') }}'" class="text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-lg">CSVを出力する</button>
-                                    <button onclick="location.href='{{ route('owner.leaved-students.index') }}'" class="text-white bg-purple-500 border-0 ml-4 py-2 px-4 focus:outline-none hover:bg-purple-600 rounded text-lg">削除済生徒</button>
-                                    <button onclick="location.href='{{ route('owner.students.create') }}'" class="text-white bg-green-500 border-0 ml-4 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-lg">新規登録する</button>
                                 </div>
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
