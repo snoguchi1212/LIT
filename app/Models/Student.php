@@ -20,11 +20,13 @@ class Student extends Authenticatable
         'grade',
         'first_name',
         'family_name',
-        'first_name',
         'family_name_kana',
         'first_name_kana',
+        'sex',
         'email',
         'password',
+        'ls_choice',
+        'school_code',
     ];
 
     /**
@@ -47,7 +49,11 @@ class Student extends Authenticatable
     ];
 
 
-    public function test(){
-        return $this->hasMany(Test::class, 'test_id');
+    public function tests(){
+        return $this->hasMany(Test::class);
+    }
+
+    public function teachers() {
+        return $this->belongsToMany(Teacher::class)->withPivot('subject_id');
     }
 }

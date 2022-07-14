@@ -18,7 +18,7 @@ class ScoreFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->text(16),
             'test_id' => $this->faker->numberBetween(1, 20),
             'subject_id' => $this->faker->numberBetween(1, 6),
             'score' => $this->faker->numberBetween(0, 100),

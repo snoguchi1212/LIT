@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/testIndex.js": "/js/testIndex.js",
     "/js/testEdit.js": "/js/testEdit.js",
+    "/js/testCreate.js": "/js/testCreate.js",
     "/css/app.css": "/css/app.css"
 }

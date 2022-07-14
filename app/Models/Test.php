@@ -17,10 +17,10 @@ class Test extends Model
     ];
 
     public function student(){
-        return $this->belongsTo(Student::class, 'id');
+        return $this->belongsTo(Student::class);
     }
 
     public function scores(){
-        return $this->hasMany(Score::class, 'test_id');
+        return $this->hasMany(Score::class)->orderBy('scores.subject_id');
     }
 }

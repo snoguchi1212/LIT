@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                 PrefectureCodeSeeder::class,
                 // SchoolCodeSeeder::class,
                 SubjectSeeder::class,
+                StudentTeacherSeeder::class,
             ]
             );
 

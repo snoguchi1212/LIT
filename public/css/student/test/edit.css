@@ -2,6 +2,27 @@ a.removeFormButton.hidden {
     display: none;
 }
 
+button#unableAddForm.hidden {
+    display:none;
+}
+button#addForm.hidden {
+    display:none;
+}
+
+/* inputのエラー処理 */
+.error { display: none; }
+
+.error.invalid {
+    display: block;
+    color: red;
+}
+
+.error.invalid {
+    display: block;
+    color: red;
+}
+
+/* スピンボタンの削除 */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;

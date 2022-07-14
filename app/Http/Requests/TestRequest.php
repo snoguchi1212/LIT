@@ -25,15 +25,17 @@ class TestRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.*' => ['required', 'string', 'max:16'],
+            'title' => ['required', 'max:20'],
+            'name.*' => ['required', 'string', 'max:20'],
             'test_id.*' => ['required', 'integer'],
             'subject_id.*' => ['required', 'integer'],
-            'score.*' => ['required', 'integer'],
-            'school_ranking.*' => ['integer'],
-            'school_people.*' => ['integer'],
-            'national_ranking.*' => ['integer'],
-            'deviation_value.*' => ['numeric', new FirstDecimalRule],
-            'average_score.*' => ['numeric', new FirstDecimalRule],
+            'score.*' => ['integer', 'nullable'],
+            'school_ranking.*' => ['integer', 'nullable'],
+            'school_people.*' => ['integer', 'nullable'],
+            'national_ranking.*' => ['integer', 'nullable'],
+            'national_people.*' => ['integer', 'nullable'],
+            'deviation_value.*' => ['numeric', new FirstDecimalRule, 'nullable'],
+            'average_score.*' => ['numeric', new FirstDecimalRule, 'nullable'],
         ];
     }
 }
