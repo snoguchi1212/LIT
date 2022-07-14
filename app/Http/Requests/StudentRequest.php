@@ -33,6 +33,7 @@ class StudentRequest extends FormRequest
             'family_name_kana' => ['required', 'string', 'max:255'],
             'first_name_kana' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:students'],
+            'school_code' => ['string', 'max:13'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }

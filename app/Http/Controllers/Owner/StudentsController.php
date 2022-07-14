@@ -8,6 +8,10 @@ use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Services\StudentService;
+use Goodby\CSV\Import\Standard\LexerConfig;
+use Goodby\CSV\Import\Standard\Lexer;
+use Goodby\CSV\Import\Standard\Interpreter;
 
 class StudentsController extends Controller
 {
@@ -19,7 +23,7 @@ class StudentsController extends Controller
 
     public function index()
     {
-        $students = Student::select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana', 'grade')->get();
+        $students = StudentService::getGradeStudents(null);
 
         return view('owner.students.index', compact('students'));
     }
@@ -55,6 +59,94 @@ class StudentsController extends Controller
             'status' => 'info',
         ]);
     }
+
+    public function createFromCSV()
+    {
+        return view('owner.students.create-from-csv');
+    }
+
+    public function storeFromCSV(Request $request)
+    {
+        $row = array([
+
+        ]);
+
+        //失敗時のエラー
+        if(!$request->hasFile('csv') || !$request->file('csv')->isValid())
+        {
+            return redirect()
+            ->route('owner.students.createFromCSV')
+            ->with([
+                    'message', '正しいファイルを選択してください',
+                    'status' => 'alert',
+                ]);
+        }
+
+        // CSV ファイル保存
+        $tmpName = mt_rand().".".$request->file('csv')->guessExtension(); //TMPファイル名
+        $request->file('csv')->move(public_path()."/csv/tmp",$tmpName);
+        $tmpPath = public_path()."/csv/tmp/".$tmpName;
+
+        //Goodby CSVのconfig設定
+        $config = new LexerConfig();
+        $interpreter = new Interpreter();
+        $interpreter->unstrict();
+
+        // XXX:WINDOWSだとこれで動かないかのような記述があった
+        //CharsetをUTF-8に変換、CSVのヘッダー行を無視
+        $config->setFromCharset(NULL)
+            ->setToCharset("UTF-8")
+            ->setIgnoreHeaderLine(true);
+
+        $lexer = new Lexer($config);
+        $dataList = [];
+
+        // 新規Observerとして、$dataList配列に値を代入
+        $interpreter->addObserver(function (array $row) use (&$dataList){
+            // 各列のデータを取得
+            $dataList[] = $row;
+        });
+
+        try {
+            $lexer->parse($tmpPath, $interpreter);
+        } catch (StrictViolationException $e) {
+            return redirect()
+            ->route('owner.students.createFromCSV')
+            ->with([
+                    'message', 'csvファイルの形式が正しくありません',
+                    'status' => 'alert',
+                ]);
+        }
+
+        // TMPファイル削除
+        unlink($tmpPath);
+
+        // 登録処理
+        $count = 0;
+        foreach($dataList as $row){
+            Student::insert([
+                'family_name' => $row[0],
+                'first_name' => $row[1],
+                'family_name_kana' => $row[2],
+                'first_name_kana' => $row[3],
+                'sex' => $row[4],
+                'email' => $row[5],
+                'password' => $row[6],
+                'grade' => $row[7],
+                'ls_choice' => $row[8],
+                'school_code' => $row[9],
+            ]);
+            $count++;
+        }
+
+        return redirect()
+        ->route('owner.students.index')
+        ->with([
+                'message', $count.'件の新規生徒を登録しました。',
+                'status' => 'info',
+            ]);
+    }
+
 
     /**
      * Display the specified resource.
@@ -151,19 +243,6 @@ class StudentsController extends Controller
     // コントローラーの1メソッドとして実装
     public function postCSV()
     {
-        // $students = Student::orderBy('id', 'desc');
-
-        // foreach($students->cursor() as $student){
-        //     $tests = $student->tests()->first();
-        //     foreach($tests->cursor() as $test){
-        //         $scores = $test->scores();
-        //         foreach($scores->cursor() as $score){
-        //             dd();
-        //         }
-        //     }
-        // }
-
-
         // コールバック関数に１行ずつ書き込んでいく処理を記述
         $callback = function () {
             // 出力バッファをopen

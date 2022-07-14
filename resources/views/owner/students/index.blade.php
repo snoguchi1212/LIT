@@ -34,7 +34,7 @@
                             {{-- #TODO:showメソッドの追加 --}}
                             @foreach ($students as $student)
                             <tr>
-                                <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade]}}</td>
+                                <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade] }}</td>
                                 <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
                                 <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
                                 <td class="px-4 py-3">

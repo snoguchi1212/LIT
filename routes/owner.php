@@ -32,6 +32,12 @@ Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owner'])->name('dashboard');
 
+Route::prefix('students', StudentsController::class)
+    ->middleware('auth:owner')->group(function(){
+        Route::get('createFromCSV', [StudentsController::class, 'createFromCSV'])->name('students.createFromCSV');
+        Route::post('createFromCSV', [StudentsController::class, 'storeFromCSV'])->name('students.storeFromCSV');
+    });
+
 Route::prefix('students/tests', StudentsController::class)
     ->middleware('auth:owner')->group(function(){
         Route::get('postCSV',  [StudentsController::class, 'postCSV'])->name('students.tests.postCSV');
@@ -49,6 +55,8 @@ middleware('auth:owner')->group(function(){
 Route::prefix('teachers/studentsInCharge')->
 middleware('auth:owner')->group(function(){
     Route::get('index/{teacher}', [StudentsInChargeController::class, 'index'])->name('teachers.studentsInCharge.index');
+    Route::get('edit/{teacher}/{gradeId?}', [StudentsInChargeController::class, 'edit'])->name('teachers.studentsInCharge.edit');
+    Route::post('upsert/{teacher}', [StudentsInChargeController::class, 'upsert'])->name('teachers.studentsInCharge.upsert');
 });
 
 Route::resource('teachers', TeachersController::class)

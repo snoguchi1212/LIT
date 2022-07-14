@@ -830,6 +830,9 @@ select {
 .mt-10 {
   margin-top: 2.5rem;
 }
+.mr-0 {
+  margin-right: 0px;
+}
 .block {
   display: block;
 }
@@ -1300,6 +1303,9 @@ select {
 }
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .align-text-bottom {
   vertical-align: text-bottom;

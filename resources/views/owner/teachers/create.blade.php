@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            生徒追加画面
+            講師追加画面
         </h2>
     </x-slot>
     <div class="py-4">

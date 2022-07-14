@@ -13,7 +13,6 @@
                             <div class="lg:w-1/2 md:w-2/3 mx-auto">
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
                             <form method="post" action="{{ route('owner.teachers.update', ['teacher' => $teacher->id]) }}">
-                            @method('PUT')
                             @csrf
                                 <div class="p-2 -m-2 w-2/4">
                                     <label for="sex" class="pr-2 leading-7 text-sm text-gray-600">性別</label>

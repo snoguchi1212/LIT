@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            生徒追加画面
+        <h2 class="flex font-semibold text-xl text-gray-800 leading-tight">
+            <div>生徒追加画面</div>
+            <button onclick="location.href='{{ route('owner.students.createFromCSV') }}'" class="ml-auto mr-0 text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-lg">CSVから登録する</button>
         </h2>
     </x-slot>
     <div class="py-4">

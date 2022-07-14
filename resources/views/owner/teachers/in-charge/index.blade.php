@@ -16,11 +16,12 @@
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('owner.teachers.create') }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">担当生徒を追加する</button>
+                                    <button onclick="location.href='{{ route('owner.teachers.studentsInCharge.edit', [$teacher->id]) }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">担当生徒を追加する</button>
                                 </div>
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
                             <tr>
+                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">学年</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">名前</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">ナマエ</th>
                                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">科目</th>
@@ -31,10 +32,11 @@
                             {{-- #TODO:showメソッドの追加 --}}
                             @foreach ($teacher->students()->get() as $student)
                             <tr>
+                                <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade] }}</td>
                                 <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
                                 <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
                                 <td class="px-4 py-3">{{ $subjects->find($student->pivot->subject_id)->name }}</td>
-                                <form id="delete_{{ $teacher->id }}" method="post" action="{{ route('owner.teachers.destroy', [$teacher->id]) }}">
+                                <form id="delete_{{ $teacher->id }}" method="post" action="{{ route('owner.teachers.studentsInCharge.edit', [$teacher->id]) }}">
                                     @csrf
                                     @method("delete")
                                     <td class="px-4 py-3">
