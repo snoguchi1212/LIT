@@ -44,9 +44,9 @@ class Teacher extends Authenticatable
 
     public function students() {
         return $this->belongsToMany(Student::class)
+            ->orderBy('students.grade')
             ->orderBy('students.family_name_kana')
             ->orderBy('students.first_name_kana')
-            ->orderBy('students.grade', 'desc')
             ->withPivot('subject_id');
     }
 

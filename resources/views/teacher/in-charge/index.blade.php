@@ -15,9 +15,6 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                                <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('owner.teachers.studentsInCharge.edit', [$teacher->id]) }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">担当生徒を追加する</button>
-                                </div>
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
                             <tr>
@@ -36,13 +33,9 @@
                                 <td class="px-4 py-3">{{ $student->family_name }} {{ $student->first_name }}</td>
                                 <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
                                 <td class="px-4 py-3">{{ $subjects->find($student->pivot->subject_id)->name }}</td>
-                                <form id="delete_{{ $teacher->id }}" method="post" action="{{ route('owner.teachers.studentsInCharge.edit', [$teacher->id]) }}">
-                                    @csrf
-                                    @method("delete")
-                                    <td class="px-4 py-3">
-                                        <a href="#" data-id="{{ $student->id }}" onclick="deletePost(this)" class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">削除</a>
-                                    </td>
-                                </form>
+                                <td class="px-4 py-3">
+                                    <a onclick="location.href='{{ route('teacher.studentsInCharge.show', [$student->id]) }}'" class="cursor-pointer text-white bg-blue-400 border-0 py-2 px-4 focus:outline-none hover:bg-blue-500 rounded ">詳細</a>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -54,12 +47,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function deletePost(e) {
-            'use strict';
-            if (confirm('本当に削除してもいいですか?')) {
-                document.getElementById('delete_' + e.dataset.id).submit();
-            }
-        }
-    </script>
 </x-app-layout>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Teacher\Auth\NewPasswordController;
 use App\Http\Controllers\Teacher\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Teacher\Auth\RegisteredUserController;
 use App\Http\Controllers\Teacher\Auth\VerifyEmailController;
+use App\Http\Controllers\Teacher\StudentsInChargeController;
 
 
 /*
@@ -29,6 +30,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('teacher.dashboard');
 })->middleware(['auth:teachers'])->name('dashboard');
+
+Route::prefix('studentsInCharge')
+->middleware('auth:teachers')->group(function () {
+    Route::get('index', [StudentsInChargeController::class, 'index'])->name('studentsInCharge');
+    Route::get('show/{student}', [StudentsInChargeController::class, 'show'])->name('studentsInCharge.show');
+});
 
 Route::middleware('guest:teachers')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
