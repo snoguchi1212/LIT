@@ -33,7 +33,7 @@
                                 <td class="px-4 py-3">{{ $student->family_name_kana }} {{ $student->first_name_kana }}</td>
                                 <td class="px-4 py-3">{{ $student->deleted_at->diffForHumans() }}</td>
                                 <td class="px-4 py-3">
-                                <button onclick="location.href='{{ route('owner.students.edit', [$student->id]) }}'" type="submit" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
+                                <button onclick="location.href='{{ route('owner.leaved-students.restore', [$student->id]) }}'" class=" text-white bg-green-400 border-0 py-2 px-4 focus:outline-none hover:bg-green-500 rounded ">復元</button>
                                 </td>
                                 <form id="delete_{{ $student->id }}" method="post" action="{{ route('owner.leaved-students.destroy', [$student->id]) }}">
                                     @csrf

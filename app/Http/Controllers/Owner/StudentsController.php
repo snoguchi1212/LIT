@@ -245,6 +245,19 @@ class StudentsController extends Controller
         return view('owner.leaved-students', compact('leavedStudents'));
     }
 
+    public function restore($id)
+    {
+        Student::onlyTrashed()->where('id', $id)->restore();
+
+        return redirect()
+        ->route('owner.students.index')
+        ->with([
+            'message' => '生徒情報を復元しました。',
+            'status' => 'info',
+        ]);
+    }
+
+
     public function leavedStudentsDestroy($id)
     {
         Student::onlyTrashed()->findOrFail($id)->forceDelete();

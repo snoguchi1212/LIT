@@ -49,6 +49,7 @@ Route::resource('students', StudentsController::class)
 Route::prefix('leaved-students')->
 middleware('auth:owner')->group(function(){
     Route::get('index', [StudentsController::class, 'leavedStudentsIndex'])->name('leaved-students.index');
+    Route::get('restore/{student}', [StudentsController::class, 'restore'])->name('leaved-students.restore');
     Route::post('destroy/{student}', [StudentsController::class, 'leavedStudentsDestroy'])->name('leaved-students.destroy');
 });
 
