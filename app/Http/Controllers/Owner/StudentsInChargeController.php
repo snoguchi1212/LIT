@@ -20,7 +20,9 @@ class StudentsInChargeController extends Controller
     {
         // TODO:並び替え
         $teacher = Teacher::findOrFail($id);
-        $students = $teacher->students();
+        $students = $teacher->students()->get();
+
+        // dd($students);
 
         $subjects =  Subject::select('id', 'name')->get();
 
@@ -44,18 +46,18 @@ class StudentsInChargeController extends Controller
 
     }
 
-    function destory()
+    function destroy()
     {
 
     }
 
-    function upsert(Request $request)
+    function upsert(Request $request, $teacher)
     {
         // これで登録することはできる→既存のデータは登録しないようにしたい
         // $teacher = Teacher::findOrFail($request->query('teacher'));
         // $teacher->students()->attach([$request->student => ['subject_id' => $request->subject]]);
 
-        $teacher = Teacher::findOrFail($request->query('teacher'));
+        $teacher = Teacher::findOrFail($teacher);
 
         // dd($request->query('teacher'), $request->student, $request->subject);
 

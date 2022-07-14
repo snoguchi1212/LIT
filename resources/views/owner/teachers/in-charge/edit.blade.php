@@ -3,7 +3,7 @@
     {{-- <x-app-side-bar></x-app-side-bar> --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{$teacher->family_name}} {{$teacher->first_name}} 担当生徒編集
+            担当生徒追加
         </h2>
     </x-slot>
 
@@ -15,9 +15,10 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <form method="POST" action="{{ route('owner.teachers.studentsInCharge.upsert', ['teacher' => $teacher->id]) }}">
-                            @csrf
-                            <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                        {{-- 絞り込み機能 --}}
+                                @csrf
+                                <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <h2  class="font-semibold text-xl text-gray-800 leading-tight pb-2">{{$teacher->family_name}} {{$teacher->first_name}} </h2>
+                        {{-- TODO:絞り込み機能 --}}
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
                             <tr>
