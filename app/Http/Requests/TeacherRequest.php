@@ -25,11 +25,11 @@ class TeacherRequest extends FormRequest
     {
         // TODO:Requestの整合性を確認する
         return [
-            'sex' => ['required', 'integer', 'digits_between:0,3'],
             'family_name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'family_name_kana' => ['required', 'string', 'max:255'],
             'first_name_kana' => ['required', 'string', 'max:255'],
+            'sex' => ['required', 'integer', 'digits_between:0,3'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:teachers'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];

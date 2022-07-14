@@ -12,6 +12,7 @@ use App\Services\StudentService;
 use Goodby\CSV\Import\Standard\LexerConfig;
 use Goodby\CSV\Import\Standard\Lexer;
 use Goodby\CSV\Import\Standard\Interpreter;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class StudentsController extends Controller
 {
@@ -21,11 +22,23 @@ class StudentsController extends Controller
         $this->middleware('auth:owner');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+
         $students = StudentService::getGradeStudents(null);
 
-        return view('owner.students.index', compact('students'));
+        $count = 15; // 一ページに表示されるデータの最大数
+
+        $studentsPaginate = new LengthAwarePaginator(
+            $students->forPage($request->page ?? 1, $count),
+            $students->count(),
+            $count,
+            $request->page ?? 1,
+        );
+
+        $studentsPaginate->withPath('/owner/students');
+
+        return view('owner.students.index', ['students' => $studentsPaginate]);
     }
 
     public function create()
