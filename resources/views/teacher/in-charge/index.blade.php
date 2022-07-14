@@ -26,7 +26,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {{-- #TODO:showメソッドの追加 --}}
                             @foreach ($teacher->students()->get() as $student)
                             <tr>
                                 <td class="px-4 py-3">{{ GradeConsts::GRADE_LIST[$student->grade] }}</td>

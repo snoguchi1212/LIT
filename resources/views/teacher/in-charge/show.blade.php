@@ -7,7 +7,6 @@
             {{ GradeConsts::GRADE_LIST[$student->grade]}} {{ $student->family_name }} {{ $student->first_name }}
         </h2>
     </x-slot>
-    {{-- #TODO:点数の表示 --}}
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -24,7 +23,7 @@
                                         <div>{{ $test->title }}</div>
                                         <div class="hidden sm:block ml-auto my-auto md:mr-8 mr-16 text-sm tracking-wider">
                                             @if (!is_null($test->start_date) && !is_null($test->end_date))
-                                            実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}〜{{ date('m/d',  strtotime($test->start_date)) }}
+                                            実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}〜{{ date('m/d',  strtotime($test->end_date)) }}
                                             @elseif (!is_null($test->start_date))
                                             実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}
                                             @endif
