@@ -8,6 +8,10 @@ use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Goodby\CSV\Import\Standard\LexerConfig;
+use Goodby\CSV\Import\Standard\Lexer;
+use Goodby\CSV\Import\Standard\Interpreter;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TeachersController extends Controller
 {
@@ -55,6 +59,91 @@ class TeachersController extends Controller
             'status' => 'info',
         ]);
     }
+
+    public function createFromCSV()
+    {
+        return view('owner.teachers.create-from-csv');
+    }
+
+    public function storeFromCSV(Request $request)
+    {
+        $row = array([
+
+        ]);
+
+        //失敗時のエラー
+        if(!$request->hasFile('csv') || !$request->file('csv')->isValid())
+        {
+            return redirect()
+            ->route('owner.teachers.createFromCSV')
+            ->with([
+                    'message', '正しいファイルを選択してください',
+                    'status' => 'alert',
+                ]);
+        }
+
+        // CSV ファイル保存
+        $tmpName = mt_rand().".".$request->file('csv')->guessExtension(); //TMPファイル名
+        $request->file('csv')->move(public_path()."/csv/tmp",$tmpName);
+        $tmpPath = public_path()."/csv/tmp/".$tmpName;
+
+        //Goodby CSVのconfig設定
+        $config = new LexerConfig();
+        $interpreter = new Interpreter();
+        $interpreter->unstrict();
+
+        // XXX:WINDOWSだとこれで動かないかのような記述があった
+        //CharsetをUTF-8に変換、CSVのヘッダー行を無視
+        $config->setFromCharset(NULL)
+            ->setToCharset("UTF-8")
+            ->setIgnoreHeaderLine(true);
+
+        $lexer = new Lexer($config);
+        $dataList = [];
+
+        // 新規Observerとして、$dataList配列に値を代入
+        $interpreter->addObserver(function (array $row) use (&$dataList){
+            // 各列のデータを取得
+            $dataList[] = $row;
+        });
+
+        try {
+            $lexer->parse($tmpPath, $interpreter);
+        } catch (StrictViolationException $e) {
+            return redirect()
+            ->route('owner.teachers.createFromCSV')
+            ->with([
+                    'message', 'csvファイルの形式が正しくありません',
+                    'status' => 'alert',
+                ]);
+        }
+
+        // TMPファイル削除
+        unlink($tmpPath);
+
+        // 登録処理
+        $count = 0;
+        foreach($dataList as $row){
+            Teacher::insert([
+                'family_name' => $row[0],
+                'first_name' => $row[1],
+                'family_name_kana' => $row[2],
+                'first_name_kana' => $row[3],
+                'sex' => $row[4],
+                'email' => $row[5],
+                'password' => $row[6],
+            ]);
+            $count++;
+        }
+
+        return redirect()
+        ->route('owner.teachers.index')
+        ->with([
+                'message', $count.'件の新規講師を登録しました。',
+                'status' => 'info',
+            ]);
+    }
+
 
     /**
      * Display the specified resource.

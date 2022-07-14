@@ -59,6 +59,12 @@ middleware('auth:owner')->group(function(){
     Route::post('upsert/{teacher}', [StudentsInChargeController::class, 'upsert'])->name('teachers.studentsInCharge.upsert');
 });
 
+Route::prefix('teachers', TeachersController::class)
+    ->middleware('auth:owner')->group(function(){
+        Route::get('createFromCSV', [TeachersController::class, 'createFromCSV'])->name('teachers.createFromCSV');
+        Route::post('createFromCSV', [TeachersController::class, 'storeFromCSV'])->name('teachers.storeFromCSV');
+    });
+
 Route::resource('teachers', TeachersController::class)
     ->middleware('auth:owner');
 
