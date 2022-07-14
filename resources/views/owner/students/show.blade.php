@@ -65,7 +65,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    {{-- TODO:オーナー側でもテストの結果を編集できるようにする --}}
+                                    {{-- #TODO:オーナー側でもテストの結果を編集できるようにする --}}
                                     {{-- <div class="edit_btn m-2">
                                         <form id="delete_{{ $test->id }}" method="post" action="{{ route('student.tests.destroy', [$test->id]) }}">
                                             @csrf

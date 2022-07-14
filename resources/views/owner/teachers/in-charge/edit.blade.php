@@ -18,7 +18,6 @@
                                 @csrf
                                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <h2  class="font-semibold text-xl text-gray-800 leading-tight pb-2">{{$teacher->family_name}} {{$teacher->first_name}} </h2>
-                        {{-- TODO:絞り込み機能 --}}
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
                             <tr>
@@ -31,7 +30,7 @@
                             {{-- #TODO:データの追加→ペジネーションの追加 --}}
                             <tr>
                                 <td class="px-4 py-3">
-                                <select id="grade" data-url={{ route('owner.teachers.studentsInCharge.edit', [$teacher->id]) }} name="grade" onchange="gradeChange()">
+                                <select id="grade" data-url={{ route('owner.teachers.studentsInCharge.create', [$teacher->id]) }} name="grade" onchange="gradeChange()">
                                     @foreach (GradeConsts::GRADE_LIST as $number => $name )
                                     <option value="{{ $number }}" @if($gradeId == $number) selected @endif>{{ $name }}</option>
                                     @endforeach

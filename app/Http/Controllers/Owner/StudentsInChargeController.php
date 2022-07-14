@@ -18,11 +18,9 @@ class StudentsInChargeController extends Controller
 
     function index($id)
     {
-        // TODO:並び替え
         $teacher = Teacher::findOrFail($id);
         $students = $teacher->students()->get();
 
-        // dd($students);
 
         $subjects =  Subject::select('id', 'name')->get();
 
@@ -30,7 +28,7 @@ class StudentsInChargeController extends Controller
         compact('teacher', 'subjects'));
     }
 
-    function edit($teacher, $gradeId = null)
+    function create($teacher, $gradeId = null)
     {
         $teacher = Teacher::findOrFail($teacher);
         $students = StudentService::getGradeStudents($gradeId);
@@ -46,9 +44,17 @@ class StudentsInChargeController extends Controller
 
     }
 
-    function destroy()
+    function destroy(Request $request)
     {
 
+        $teacher = Teacher::findOrFail($request->teacher);
+        $teacher->students()->detach($request->student);
+
+        $teacher = Teacher::findOrFail($request->teacher);
+        $subjects =  Subject::select('id', 'name')->get();
+
+        return view('owner.teachers.in-charge.index',
+        compact('teacher', 'subjects'));
     }
 
     function upsert(Request $request, $teacher)
