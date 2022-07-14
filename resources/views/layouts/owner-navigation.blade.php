@@ -20,16 +20,8 @@
                     <x-nav-link :href="route('owner.students.index')" :active="request()->routeIs('owner.students.index')">
                         生徒管理
                     </x-nav-link>
-                {{-- #TODO:別にリンクを作成する --}}
-                    <x-nav-link :href="route('owner.leaved-students.index')" :active="request()->routeIs('owner.leaved-students.index')">
-                        退塾生徒一覧
-                    </x-nav-link>
                     <x-nav-link :href="route('owner.teachers.index')" :active="request()->routeIs('owner.teachers.index')">
                         講師管理
-                    </x-nav-link>
-                {{-- #TODO:別にリンクを作成する --}}
-                    <x-nav-link :href="route('owner.leaved-teachers.index')" :active="request()->routeIs('owner.leaved-teachers.index')">
-                        退塾講師一覧
                     </x-nav-link>
                 </div>
             </div>

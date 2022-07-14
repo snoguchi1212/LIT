@@ -16,7 +16,8 @@
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <div class="flex justify-end mb-4">
-                                    <button onclick="location.href='{{ route('owner.teachers.create') }}'" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">新規登録する</button>
+                                    <button onclick="location.href='{{ route('owner.leaved-teachers.index') }}'" class="text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none hover:bg-purple-600 rounded text-lg">削除済講師</button>
+                                    <button onclick="location.href='{{ route('owner.teachers.create') }}'" class="text-white bg-green-500 border-0 ml-4 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-lg">新規登録する</button>
                                 </div>
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                             <thead>
