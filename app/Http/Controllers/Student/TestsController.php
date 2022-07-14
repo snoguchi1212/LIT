@@ -303,6 +303,14 @@ class TestsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Test::find($id)->delete();
+
+        return redirect()
+        ->route('student.tests.index')
+        ->with([
+            'message' => '点数を削除しました。',
+            'status' => 'alert',
+        ]);
+
     }
 }

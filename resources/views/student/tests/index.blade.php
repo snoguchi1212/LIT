@@ -55,7 +55,12 @@
                                         </tbody>
                                     </table>
                                     <div class="edit_btn m-2">
-                                        <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">点数を編集する</button>
+                                        <form id="delete_{{ $test->id }}" method="post" action="{{ route('student.tests.destroy', [$test->id]) }}">
+                                            @csrf
+                                            @method("delete")
+                                            <button href="#" type="button" data-id="{{ $test->id }}" class="delete_btn text-white bg-red-400 border-0 ml-2 py-2 px-4 focus:outline-none hover:bg-red-500 rounded text-lg">削除</button>
+                                        </form>
+                                        <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 ml-2 py-2 px-4 focus:outline-none hover:bg-blue-500 rounded text-lg">編集する</button>
                                     </div>
                                 </div>
                             @endforeach
@@ -67,5 +72,5 @@
             </div>
         </div>
     </div>
-<script src={{ asset('js\testIndex.js')}} ></script>
+<script src={{ asset('js\testIndex.js')}}></script>
 </x-app-layout>
