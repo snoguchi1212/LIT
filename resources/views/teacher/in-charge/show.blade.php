@@ -22,7 +22,7 @@
                                     <div class="flex studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">
                                         <div>{{ $test->title }}</div>
                                         <div class="hidden sm:block ml-auto my-auto md:mr-8 mr-16 text-sm tracking-wider">
-                                            @if (!is_null($test->start_date) && !is_null($test->end_date))
+                                            @if ((isset($test->start_date) && isset($test->end_date)) && $test->start_date != $test->end_date)
                                             実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}〜{{ date('m/d',  strtotime($test->end_date)) }}
                                             @elseif (!is_null($test->start_date))
                                             実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}
