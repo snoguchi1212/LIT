@@ -21,11 +21,26 @@ class TeachersController extends Controller
         $this->middleware('auth:owner');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $teachers = Teacher::select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana')->get();
+        $teachers = Teacher::select('id', 'family_name', 'first_name', 'family_name_kana', 'first_name_kana')
+            ->orderBy('family_name_kana')
+            ->orderBy('first_name_kana')
+            ->get();
 
-        return view('owner.teachers.index', compact('teachers'));
+        $count = 15; // 一ページに表示されるデータの最大数
+
+        $teachersPaginate = new LengthAwarePaginator(
+            $teachers->forPage($request->page ?? 1, $count),
+            $teachers->count(),
+            $count,
+            $request->page ?? 1,
+        );
+
+        $teachersPaginate->withPath('/owner/teachers');
+
+
+        return view('owner.teachers.index', ['teachers' => $teachersPaginate]);
     }
 
     public function create()

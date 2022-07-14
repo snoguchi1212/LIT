@@ -50,6 +50,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="py-4">
+                            {{ $teachers->links() }}
+                        </div>
                         </div>
                     </div>
                     </section>
