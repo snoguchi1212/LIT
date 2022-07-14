@@ -14,9 +14,9 @@ class StudentService
     public static function getGradeStudents(?int $gradeId): Collection
     {
         if(is_null($gradeId)){
-            $students = Student::orderby('grade')->orderby('family_name')->orderby('first_name')->get();
+            $students = Student::orderby('grade')->orderby('family_name_kana')->orderby('first_name_kana')->get();
         } else {
-            $students =  Student::where('grade', $gradeId)->orderby('family_name')->orderby('first_name')->get();
+            $students =  Student::where('grade', $gradeId)->orderby('family_name_kana')->orderby('first_name_kana')->get();
         }
         return $students;
     }
