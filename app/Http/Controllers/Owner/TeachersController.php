@@ -55,7 +55,7 @@ class TeachersController extends Controller
 
         return redirect()
         ->route('owner.teachers.index')
-        ->with(['message', '新規講師を登録しました。',
+        ->with(['message' => '新規講師を登録しました。',
             'status' => 'info',
         ]);
     }
@@ -77,7 +77,7 @@ class TeachersController extends Controller
             return redirect()
             ->route('owner.teachers.createFromCSV')
             ->with([
-                    'message', '正しいファイルを選択してください',
+                    'message' => '正しいファイルを選択してください',
                     'status' => 'alert',
                 ]);
         }
@@ -113,7 +113,7 @@ class TeachersController extends Controller
             return redirect()
             ->route('owner.teachers.createFromCSV')
             ->with([
-                    'message', 'csvファイルの形式が正しくありません',
+                    'message' => 'csvファイルの形式が正しくありません',
                     'status' => 'alert',
                 ]);
         }
@@ -139,7 +139,7 @@ class TeachersController extends Controller
         return redirect()
         ->route('owner.teachers.index')
         ->with([
-                'message', $count.'件の新規講師を登録しました。',
+                'message' => $count.'件の新規講師を登録しました。',
                 'status' => 'info',
             ]);
     }
@@ -216,6 +216,18 @@ class TeachersController extends Controller
         ->with([
             'message' => '講師情報を削除しました。',
             'status' => 'alert',
+        ]);
+    }
+
+    public function restore($id)
+    {
+        Teacher::onlyTrashed()->where('id', $id)->restore();
+
+        return redirect()
+        ->route('owner.teachers.index')
+        ->with([
+            'message' => '講師情報を復元しました。',
+            'status' => 'info',
         ]);
     }
 

@@ -65,14 +65,15 @@ Route::prefix('teachers', TeachersController::class)
         Route::post('createFromCSV', [TeachersController::class, 'storeFromCSV'])->name('teachers.storeFromCSV');
     });
 
-Route::resource('teachers', TeachersController::class)
-    ->middleware('auth:owner');
-
 Route::prefix('leaved-teachers')->
 middleware('auth:owner')->group(function(){
     Route::get('index', [TeachersController::class, 'leavedTeachersIndex'])->name('leaved-teachers.index');
-    Route::post('destroy/{student}', [TeachersController::class, 'leavedTeachersDestroy'])->name('leaved-teachers.destroy');
+    Route::get('restore/{teacher}', [TeachersController::class, 'restore'])->name('leaved-teachers.restore');
+    Route::post('destroy/{teacher}', [TeachersController::class, 'leavedTeachersDestroy'])->name('leaved-teachers.destroy');
 });
+
+Route::resource('teachers', TeachersController::class)
+    ->middleware('auth:owner');
 
 Route::middleware('guest:owner')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

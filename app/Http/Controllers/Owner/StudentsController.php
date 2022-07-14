@@ -68,7 +68,8 @@ class StudentsController extends Controller
 
         return redirect()
         ->route('owner.students.index')
-        ->with(['message', '新規生徒を登録しました。',
+        ->with([
+            'message' => '新規生徒を登録しました。',
             'status' => 'info',
         ]);
     }
@@ -90,7 +91,7 @@ class StudentsController extends Controller
             return redirect()
             ->route('owner.students.createFromCSV')
             ->with([
-                    'message', '正しいファイルを選択してください',
+                    'message' => '正しいファイルを選択してください',
                     'status' => 'alert',
                 ]);
         }
@@ -126,7 +127,7 @@ class StudentsController extends Controller
             return redirect()
             ->route('owner.students.createFromCSV')
             ->with([
-                    'message', 'csvファイルの形式が正しくありません',
+                    'message' => 'csvファイルの形式が正しくありません',
                     'status' => 'alert',
                 ]);
         }
@@ -155,7 +156,7 @@ class StudentsController extends Controller
         return redirect()
         ->route('owner.students.index')
         ->with([
-                'message', $count.'件の新規生徒を登録しました。',
+                'message' => $count.'件の新規生徒を登録しました。',
                 'status' => 'info',
             ]);
     }
