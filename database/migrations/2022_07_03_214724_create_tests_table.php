@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('students');
             $table->string('title', 16);
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->timestamps();
         });
     }

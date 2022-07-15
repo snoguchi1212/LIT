@@ -13,6 +13,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{{ asset("images/LIT_logo.png") }}">
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>

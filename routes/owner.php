@@ -41,6 +41,8 @@ Route::prefix('students', StudentsController::class)
 Route::prefix('students/tests', StudentsController::class)
     ->middleware('auth:owner')->group(function(){
         Route::get('postCSV',  [StudentsController::class, 'postCSV'])->name('students.tests.postCSV');
+        Route::get('showOrderedBySubject/{student}', [StudentsController::class, 'showOrderedBySubject'])->name('students.tests.showOrderedBySubject');
+
     });
 
 Route::resource('students', StudentsController::class)
@@ -50,13 +52,14 @@ Route::prefix('leaved-students')->
 middleware('auth:owner')->group(function(){
     Route::get('index', [StudentsController::class, 'leavedStudentsIndex'])->name('leaved-students.index');
     Route::get('restore/{student}', [StudentsController::class, 'restore'])->name('leaved-students.restore');
-    Route::post('destroy/{student}', [StudentsController::class, 'leavedStudentsDestroy'])->name('leaved-students.destroy');
+    Route::delete('destroy/{student}', [StudentsController::class, 'leavedStudentsDestroy'])->name('leaved-students.destroy');
 });
 
 Route::prefix('teachers/studentsInCharge')->
 middleware('auth:owner')->group(function(){
     Route::get('index/{teacher}', [StudentsInChargeController::class, 'index'])->name('teachers.studentsInCharge.index');
-    Route::get('edit/{teacher}/{gradeId?}', [StudentsInChargeController::class, 'edit'])->name('teachers.studentsInCharge.edit');
+    Route::get('create/{teacher}/{gradeId?}', [StudentsInChargeController::class, 'create'])->name('teachers.studentsInCharge.create');
+    Route::post('destroy', [StudentsInChargeController::class, 'destroy'])->name('teachers.studentsInCharge.destroy');
     Route::post('upsert/{teacher}', [StudentsInChargeController::class, 'upsert'])->name('teachers.studentsInCharge.upsert');
 });
 

@@ -9,6 +9,8 @@ use App\Models\Student;
 use App\Models\Subject;
 use App\Services\StudentService;
 use Illuminate\Support\Facades\Auth;
+use App\Services\TestService;
+
 
 class StudentsInChargeController extends Controller
 {
@@ -46,11 +48,21 @@ class StudentsInChargeController extends Controller
     {
 
         $student = Student::findOrFail($studentId);
-        $tests = $student->tests()->get();
-
+        $tests = TestService::groupedByTest($studentId);
 
         return view('teacher.in-charge.show',
             compact('student', 'tests'));
+    }
+
+    function showOrderBySubject($studentId)
+    {
+
+        $student = Student::findOrFail($studentId);
+
+        $subjects = TestService::groupedBySubject($studentId);
+
+        return view('teacher.in-charge.show-order-by-subject',
+            compact('student', 'subjects'));
     }
 
 }

@@ -35,6 +35,7 @@ Route::prefix('studentsInCharge')
 ->middleware('auth:teachers')->group(function () {
     Route::get('index', [StudentsInChargeController::class, 'index'])->name('studentsInCharge');
     Route::get('show/{student}', [StudentsInChargeController::class, 'show'])->name('studentsInCharge.show');
+    Route::get('showOrderBySubject/{student}', [StudentsInChargeController::class, 'showOrderBySubject'])->name('studentsInCharge.showOrderBySubject');
 });
 
 Route::middleware('guest:teachers')->group(function () {

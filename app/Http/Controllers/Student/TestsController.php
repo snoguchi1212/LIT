@@ -95,11 +95,14 @@ class TestsController extends Controller
 
         // #HACK:もう少し綺麗に書けそう
         try{
+
             DB::transaction(function () use($request){
 
                 $test = Test::create([
                     'student_id' => Auth::id(),
                     'title' => $request->title[0],
+                    'start_date' => date('Y-m-d H:i:s', strtotime($request->start_date)),
+                    'end_date' => $request->end_date,
                 ]);
 
                 $i = 0;
@@ -222,6 +225,8 @@ class TestsController extends Controller
                 $test = Test::where('id', $request->test);
                 $test->update([
                     'title' => $request->title[0],
+                    'start_date' => $request->start_date,
+                    'end_date' => $request->end_date,
                 ]);
                 $test = Test::where('id', $request->test);
 

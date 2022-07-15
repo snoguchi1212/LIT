@@ -7,7 +7,6 @@
             {{ GradeConsts::GRADE_LIST[$student->grade]}} {{ $student->family_name }} {{ $student->first_name }}
         </h2>
     </x-slot>
-    {{-- #TODO:点数の表示 --}}
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,15 +15,20 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-10/12 w-full mx-auto overflow-auto">
-                                {{-- TODO:科目ごとの並び替え --}}
+                                <div class="flex">
+                                    <div class="mb-4">
+                                        {{-- iconを入れる --}}
+                                        <button onclick="location.href='{{ route('teacher.studentsInCharge.showOrderBySubject', [$student->id]) }}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">科目ごと</button>
+                                    </div>
+                                </div>
                             {{-- TODO:レスポンシブ対応 --}}
                             @foreach ($tests as $test)
                                 <div class="studentTestContainer first:mb-2 border-2 border-gray-300 sm:rounded-lg">
                                     <div class="flex studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">
                                         <div>{{ $test->title }}</div>
                                         <div class="hidden sm:block ml-auto my-auto md:mr-8 mr-16 text-sm tracking-wider">
-                                            @if (!is_null($test->start_date) && !is_null($test->end_date))
-                                            実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}〜{{ date('m/d',  strtotime($test->start_date)) }}
+                                            @if ((isset($test->start_date) && isset($test->end_date)) && $test->start_date != $test->end_date)
+                                            実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}〜{{ date('m/d',  strtotime($test->end_date)) }}
                                             @elseif (!is_null($test->start_date))
                                             実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}
                                             @endif
