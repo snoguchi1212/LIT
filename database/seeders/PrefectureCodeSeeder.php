@@ -16,9 +16,10 @@ class PrefectureCodeSeeder extends Seeder
     public function run()
     {
         $this->command->info("都道府県の作成を開始します...");
-        $this->command->info('/var/www/html/public/csv/prefecture_code.csv');
 
-        $prefectureCodeSplFileObject = new \SplFileObject('/var/www/html/public/csv/prefecture_code.csv');
+        $this->command->info(asset("csv/LIT_logo.png"));
+
+        $prefectureCodeSplFileObject = new \SplFileObject(asset("csv/LIT_logo.png"));
         $prefectureCodeSplFileObject->setFlags(
             \SplFileObject::READ_CSV |
             \SplFileObject::READ_AHEAD |
