@@ -25,11 +25,14 @@ class StudentTeacherSeeder extends Seeder
 
             $set_teacher_id = Teacher::select('id')->inRandomOrder()->first()->id;
 
+            $set_subject_id = Subject::select('id')->inRandomOrder()->first()->id;
+
             // クエリビルダを利用し、上記のモデルから取得した値が、現在までの複合主キーと重複するかを確認
             $student_teacher = DB::table('student_teacher')
                             ->where([
                                 ['student_id', '=', $set_student_id],
-                                ['teacher_id', '=', $set_teacher_id]
+                                ['teacher_id', '=', $set_teacher_id],
+                                ['subject_id', '=', $set_subject_id]
                             ])->get();
 
             // 上記のクエリビルダで取得したコレクションが空の場合、外部キーに上記のモデルから取得した値をセット
@@ -38,7 +41,7 @@ class StudentTeacherSeeder extends Seeder
                     [
                         'student_id' => $set_student_id,
                         'teacher_id' => $set_teacher_id,
-                        'subject_id' => mt_rand(1, 9) * 10 + 1
+                        'subject_id' => $set_subject_id,
                     ]
                 );
             }else{
