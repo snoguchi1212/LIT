@@ -26,6 +26,8 @@ class TestRequest extends FormRequest
     {
         return [
             'title' => ['required', 'max:20'],
+            'start_date' => ['date', 'nullable'],
+            'end_date' => ['date', 'nullable'],
             'name.*' => ['required', 'string', 'max:20'],
             'test_id.*' => ['required', 'integer'],
             'subject_id.*' => ['required', 'integer'],

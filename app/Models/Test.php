@@ -14,6 +14,8 @@ class Test extends Model
     protected $fillable = [
         'student_id',
         'title',
+        'start_date',
+        'end_date'
     ];
 
     public function student(){

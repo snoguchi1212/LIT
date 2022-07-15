@@ -3,6 +3,27 @@
 //　 入力フォームの追加・削除
 // HACK:ファイル分割
 {
+    const startDateForm = document.getElementById('start_date');
+    const endDateForm = document.getElementById('end_date');
+
+    const checkDateForm = function (e) {
+        const startDateForm = document.getElementById('start_date');
+        const endDateForm = document.getElementById('end_date');
+        const DateFormErrorMessage = document.getElementById('date_form_error')
+
+        const startDate = startDateForm.value;
+        const endDate = endDateForm.value;
+
+        if (startDate <= endDate || startDate == "" || endDate == "") {
+            DateFormErrorMessage.classList.add('hidden')
+        }
+        else {DateFormErrorMessage.classList.remove('hidden')}
+
+    }
+
+    startDateForm.addEventListener('change', checkDateForm);
+    endDateForm.addEventListener('change', checkDateForm);
+
     /**
      * 3桁.1桁の確認->できていなければ, invalid属性をつける
     */

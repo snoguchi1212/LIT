@@ -145,9 +145,29 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   };
 
+  var startDateForm = document.getElementById('start_date');
+  var endDateForm = document.getElementById('end_date');
+
+  var checkDateForm = function checkDateForm(e) {
+    var startDateForm = document.getElementById('start_date');
+    var endDateForm = document.getElementById('end_date');
+    var DateFormErrorMessage = document.getElementById('date_form_error');
+    var startDate = startDateForm.value;
+    var endDate = endDateForm.value;
+
+    if (startDate <= endDate || startDate == "" || endDate == "") {
+      DateFormErrorMessage.classList.add('hidden');
+    } else {
+      DateFormErrorMessage.classList.remove('hidden');
+    }
+  };
+
+  startDateForm.addEventListener('change', checkDateForm);
+  endDateForm.addEventListener('change', checkDateForm);
   /**
    * 3桁.1桁の確認->できていなければ, invalid属性をつける
   */
+
   var checkFirstDecimalAlert = function checkFirstDecimalAlert(e) {
     var regex = new RegExp(/((^[0-9]{1,3})(\.[0-9]{0,1}$))|(^[0-9]{0,3}$)/); // 判定
 

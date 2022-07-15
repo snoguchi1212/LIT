@@ -19,6 +19,15 @@
                                     <label for="title" class="leading-7 text-sm text-gray-600">テスト名</label><span class="text-red-500 text-xs">【必須】</span></label><br>
                                     <input type="text" maxlength="16" id="title" name="title[]" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
+                                <div class="p-2 mr-2 w-3/4">
+                                    <label for="start_date" class="leading-7 text-sm text-gray-600">実施日</label><br>
+                                    <div class="md:flex flex-wrap">
+                                        <input type="date" id="start_date" name="start_date" class="w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <div class="mt-2 mx-2">〜</div>
+                                        <input type="date" id="end_date" name="end_date" class="w-1/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+                                    <div id="date_form_error" class="hidden text-xs text-red-600 mt-2">正しい日付を入力してください</div>
+                                </div>
                                 <div id="scoreForms" class="scoreForms mb-4 border-b border-gray-400">
                                     {{-- #TODO:フレックス対応 --}}
                                     <template id="form-template">
