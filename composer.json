@@ -12,7 +12,7 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "laravel/breeze": "^1.9",
