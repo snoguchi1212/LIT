@@ -2,8 +2,7 @@
     "private": true,
     "scripts": {
         "start": "node app.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "heroku-postbuild": "npm run prod"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.4.0",
