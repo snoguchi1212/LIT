@@ -35,11 +35,10 @@ Route::get('/dashboard', function () {
     //     Route::get('tests/indexOrderedSubject', [TestsController::class, 'indexOrderedSubject'])
     //                 ->name('tests.indexOrderSubject');
     // });
-    Route::prefix('tests')
-        ->middleware('auth:students')->group(function () {
-        Route::get('indexOrderBySubject', [TestsController::class, 'indexOrderBySubject'])
-                    ->name('tests.indexOrderBySubject');
-    });
+Route::prefix('tests')
+    ->middleware('auth:students')->group(function () {
+        Route::get('indexOrderBySubject', [TestsController::class, 'indexOrderBySubject'])->name('tests.indexOrderBySubject');
+});
 
     Route::resource('tests', TestsController::class)
     ->middleware('auth:students');

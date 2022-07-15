@@ -9,6 +9,7 @@ use App\Http\Requests\TestRequest;
 use App\Models\Test;
 use App\Models\Score;
 use App\Models\Subject;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Template\Template;
@@ -20,25 +21,24 @@ class TestsController extends Controller
 {
     public function __construct()
     {
+
         $this->middleware('auth:students');
 
         $this->middleware(function($request, $next) {
+            // HACK:何が間違えているかわからない
             $id = $request->route()->parameter('test');
-            if(!is_null($id)) {
-                $testsStudentId = Test::findOrFail($id)->student_id;
-                $testId = (int)$testsStudentId;
-                $studentId = Auth::id();
-
-                if($studentId !== $testId){
-                    abort(404);
+            if(!is_null($id)){
+                if($id != "indexOrderedBySubject"){
+                    $testsStudentId = Test::findOrFail($id)->student_id;
+                    $testId = (int)$testsStudentId;
+                    $studentId = Auth::id();
+                    if($studentId !== $testId){
+                        abort(404);
+                    }
                 }
             }
-
-
-
             return $next($request);
         });
-
 
     }
 
@@ -61,12 +61,11 @@ class TestsController extends Controller
 
     public function indexOrderBySubject()
     {
-
         $studentId = Auth::id();
+        $student = Student::findOrFail($studentId);
         $subjects = TestService::groupedBySubject($studentId);
-
         return view('student.tests.index-order-by-subject',
-        compact('subjects'));
+        compact('student', 'subjects'));
     }
 
 

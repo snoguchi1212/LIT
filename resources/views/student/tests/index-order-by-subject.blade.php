@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css\student\test\style.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ GradeConsts::GRADE_LIST[$student->grade]}} {{ $student->family_name }} {{ $student->first_name }}
+            定期テスト点数 (科目)
         </h2>
     </x-slot>
 
