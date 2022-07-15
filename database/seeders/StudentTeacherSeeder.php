@@ -38,7 +38,7 @@ class StudentTeacherSeeder extends Seeder
                     [
                         'student_id' => $set_student_id,
                         'teacher_id' => $set_teacher_id,
-                        'subject_id' => rand(1, 10),
+                        'subject_id' => mt_rand(1, 9) * 10 + 1
                     ]
                 );
             }else{

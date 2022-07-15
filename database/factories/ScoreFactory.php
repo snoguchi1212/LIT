@@ -19,8 +19,8 @@ class ScoreFactory extends Factory
     {
         return [
             'name' => $this->faker->text(16),
-            'test_id' => $this->faker->numberBetween(1, 20),
-            'subject_id' => $this->faker->numberBetween(1, 6),
+            'test_id' => mt_rand(1, 20) * 10 + 1,
+            'subject_id' => mt_rand(1, 20) * 6 + 1,
             'score' => $this->faker->numberBetween(0, 100),
             'school_ranking' => $this->faker->numberBetween(1, 50),
             'school_people' => $this->faker->numberBetween(50, 100),
