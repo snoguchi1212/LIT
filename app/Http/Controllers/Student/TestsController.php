@@ -59,13 +59,13 @@ class TestsController extends Controller
 
     }
 
-    public function indexOrderedBySubject()
+    public function indexOrderBySubject()
     {
 
         $studentId = Auth::id();
         $subjects = TestService::groupedBySubject($studentId);
 
-        return view('student.tests.index-ordered-by-subject',
+        return view('student.tests.index-order-by-subject',
         compact('subjects'));
     }
 

@@ -17,7 +17,7 @@
                                 <div class="flex">
                                     <div class="mb-4">
                                         {{-- iconを入れる --}}
-                                        <button onclick="location.href='{{ route('student.tests.indexOrderedBySubject')}}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">科目ごと</button>
+                                        <button onclick="location.href='{{ route('student.tests.indexOrderBySubject')}}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">科目ごと</button>
                                     </div>
                                     <div class="ml-auto mb-4">
                                         <button onclick="location.href='{{ route('student.tests.create') }}'" class="text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-lg">点数を登録する</button>

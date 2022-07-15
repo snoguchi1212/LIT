@@ -1,13 +1,11 @@
 <x-app-layout>
-    {{-- #TODO:sidebarの実装 --}}
-    {{-- <x-app-side-bar></x-app-side-bar> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css\student\test\style.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ GradeConsts::GRADE_LIST[$student->grade]}} {{ $student->family_name }} {{ $student->first_name }}
         </h2>
     </x-slot>
-    {{-- #TODO:点数の表示 --}}
+
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,29 +14,20 @@
                         <div class="container px-5 mx-auto">
                             <x-flash-message status="session('status')" />
                             <div class="lg:w-10/12 w-full mx-auto overflow-auto">
-                                {{-- #TODO:科目ごとの並び替え --}}
                                 <div class="flex">
                                     <div class="mb-4">
-                                        <button onclick="location.href='{{ route('owner.students.tests.showOrderBySubject', [$student->id])}}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">科目ごと</button>
+                                        {{-- iconを入れる --}}
+                                        <button onclick="location.href='{{ route('owner.studentsInCharge.index', [$student->id]) }}'" class="text-white bg-sky-400 border-0 py-2 px-4 focus:outline-none hover:bg-sky-500 rounded text-lg">テストごと</button>
                                     </div>
                                 </div>
                             {{-- TODO:レスポンシブ対応 --}}
-                            @foreach ($tests as $test)
-                                <div class="studentTestContainer border-2 border-gray-300 first:mb-2 sm:rounded-lg">
-                                    <div class="flex studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">
-                                        <div>{{ $test->title }}</div>
-                                        <div class="hidden sm:block ml-auto my-auto md:mr-8 mr-16 text-sm tracking-wider">
-                                            @if ((isset($test->start_date) && isset($test->end_date)) && $test->start_date != $test->end_date)
-                                            実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}〜{{ date('m/d',  strtotime($test->end_date)) }}
-                                            @elseif (isset($test->start_date))
-                                            実施日 : {{ date('Y/m/d',  strtotime($test->start_date)) }}
-                                            @endif
-                                        </div>
-                                    </div>
+                            @foreach ($subjects as $subject)
+                                <div class="studentTestContainer border-2 border-gray-300 sm:rounded-lg">
+                                    <div class="studentTest cursor-pointer px-4 py-3 text-xl font-medium text-gray-900 bg-gray-200 rounded-tl">{{ $subject->name }}</div>
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
                                             <tr>
-                                                <th class="px-4 py-3 tracking-wider font-medium text-gray-900 text-base bg-gray-100 rounded-tl">教科</th>
+                                                <th class="px-4 py-3 tracking-wider font-medium text-gray-900 text-base bg-gray-100 rounded-tl">テスト</th>
                                                 <th class="px-4 py-3 tracking-wider font-medium text-gray-900 text-base bg-gray-100 rounded-tl">科目名</th>
                                                 <th class="px-4 py-3 tracking-wider font-medium text-gray-900 text-base bg-gray-100 rounded-tl">点数</th>
                                                 <th class="px-4 py-3 tracking-wider md:table-cell hidden font-medium text-gray-900 text-base bg-gray-100 rounded-tl">平均点</th>
@@ -48,9 +37,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($test->scores as $score)
+                                        @foreach ($subject->scores as $score)
                                             <tr>
-                                                <td class="px-4 py-3">{{ $score->subject->name }}</td>
+                                                <td class="px-4 py-3">{{ $score->test->title }}</td>
                                                 <td class="px-4 py-3">{{ $score->name }}</td>
                                                 <td class="px-4 py-3">{{ $score->score }}</td>
                                                 <td class="px-4 py-3 md:table-cell hidden">{{ $score->average_score }}</td>
@@ -61,15 +50,6 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    {{-- #TODO:オーナー側でもテストの結果を編集できるようにする --}}
-                                    {{-- <div class="edit_btn m-2">
-                                        <form id="delete_{{ $test->id }}" method="post" action="{{ route('student.tests.destroy', [$test->id]) }}">
-                                            @csrf
-                                            @method("delete")
-                                            <button href="#" type="button" data-id="{{ $test->id }}" class="delete_btn text-white bg-red-400 border-0 ml-2 py-2 px-4 focus:outline-none hover:bg-red-500 rounded text-lg">削除</button>
-                                        </form>
-                                        <button onclick="location.href='{{ route('student.tests.edit', ['test' => $test->id]) }}'" class="text-white bg-blue-400 border-0 ml-2 py-2 px-4 focus:outline-none hover:bg-blue-500 rounded text-lg">編集する</button>
-                                    </div> --}}
                                 </div>
                             @endforeach
                         </table>
@@ -80,13 +60,5 @@
             </div>
         </div>
     </div>
-<script src={{ asset('js\testIndex.js')}}></script>
-    {{-- <script>
-        function deletePost(e) {
-            'use strict';
-            if (confirm('本当に削除してもいいですか?')) {
-                document.getElementById('delete_' + e.dataset.id).submit();
-            }
-        }
-    </script> --}}
+<script src={{ asset('js\testIndex.js')}} ></script>
 </x-app-layout>

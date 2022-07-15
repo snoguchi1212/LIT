@@ -32,13 +32,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:students'])->name('dashboard');
 
 // Route::middleware('auth:students')->group(function () {
-    //     Route::get('tests/indexOrderedBySubject', [TestsController::class, 'indexOrderedBySubject'])
-    //                 ->name('tests.indexOrderedBySubject');
+    //     Route::get('tests/indexOrderedSubject', [TestsController::class, 'indexOrderedSubject'])
+    //                 ->name('tests.indexOrderSubject');
     // });
     Route::prefix('tests')
         ->middleware('auth:students')->group(function () {
-        Route::get('indexOrderedBySubject', [TestsController::class, 'indexOrderedBySubject'])
-                    ->name('tests.indexOrderedBySubject');
+        Route::get('indexOrderBySubject', [TestsController::class, 'indexOrderBySubject'])
+                    ->name('tests.indexOrderBySubject');
     });
 
     Route::resource('tests', TestsController::class)

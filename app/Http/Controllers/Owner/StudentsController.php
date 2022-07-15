@@ -177,7 +177,7 @@ class StudentsController extends Controller
         return view('owner.students.show', compact('student', 'tests'));
     }
 
-    public function showOrderedBySubject($studentId)
+    public function showOrderBySubject($studentId)
     {
         $student = Student::findOrFail($studentId);
         $subjects = TestService::groupedBySubject($studentId);
