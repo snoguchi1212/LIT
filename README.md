@@ -24,3 +24,15 @@
 2. 講師と担当している生徒の結び付けを行います.
 
 3. 生徒と講師にパスワードを発行し、出力します
+
+<img src="https://raw.githubusercontent.com/snoguchi1212/LIT/images/LIT_gif/index1.gif" width="100%">
+<img src="https://raw.githubusercontent.com/snoguchi1212/LIT/images/LIT_gif/index2.gif" width="100%">
+<img src="https://raw.githubusercontent.com/snoguchi1212/LIT/images/LIT_gif/create.gif" width="100%">
+<img src="https://raw.githubusercontent.com/snoguchi1212/LIT/images/LIT_gif/edit.gif" width="100%">
+
+## 使用技術
+
+- PHP 8.0
+- Laravel 8.0
+- tailwind CSS 3.0.18
+- Docker/DockerCompose

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 OwnerSeeder::class,
                 StudentSeeder::class,
                 TeacherSeeder::class,
-                PrefectureCodeSeeder::class,
+                // PrefectureCodeSeeder::class,
                 // SchoolCodeSeeder::class,
                 SubjectSeeder::class,
                 StudentTeacherSeeder::class,

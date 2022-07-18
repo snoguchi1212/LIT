@@ -28,10 +28,10 @@
                         <a href="{{ url('/teacher/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
                     @else
                         <a href="{{ route('teacher.login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('teacher.register'))
+{{-- 講師に登録機能を付与しない --}}
+                        {{-- @if (Route::has('teacher.register'))
                             <a href="{{ route('teacher.register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
+                        @endif --}}
                     @endauth
                 </div>
             @endif
