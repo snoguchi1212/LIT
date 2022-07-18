@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'students',
-        'passwords' => 'users',
+        'passwords' => 'students',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'students',
         ],
 
         'owner' => [
