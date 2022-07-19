@@ -23,9 +23,9 @@ use App\Http\Controllers\Student\TestsController;
 |
 */
 
-Route::get('/', function () {
-    return view('student.welcome');
-});
+// Route::get('/', function () {
+//     return view('student.welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('student.dashboard');
