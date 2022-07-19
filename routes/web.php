@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('top');
+})->name('top');
 
-Route::get('/dashboard', function () {
-    return view('student.dashboard');
-})->middleware(['auth:students'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

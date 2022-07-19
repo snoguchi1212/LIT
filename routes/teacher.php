@@ -23,9 +23,9 @@ use App\Http\Controllers\Teacher\StudentsInChargeController;
 |
 */
 
-Route::get('/', function () {
-    return view('teacher.welcome');
-});
+// Route::get('/', function () {
+//     return view('teacher.welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('teacher.dashboard');
