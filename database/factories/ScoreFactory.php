@@ -22,8 +22,12 @@ class ScoreFactory extends Factory
         $set_test_id = Test::select('id')->inRandomOrder()->first()->id;
         $set_subject_id = Subject::select('id')->inRandomOrder()->first()->id;
 
+
+        $names = ['数学A', '数学B', '英語A', '英語B', '物理', '化学', '生物', '世界史', '地理'];
+        $set_name = $names[array_rand($names, 1)];
+
         return [
-            'name' => $this->faker->text(16),
+            'name' => $set_name,
             'test_id' => $set_test_id,
             'subject_id' => $set_subject_id,
             'score' => $this->faker->numberBetween(0, 100),

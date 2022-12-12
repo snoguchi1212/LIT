@@ -19,9 +19,12 @@ class TestFactory extends Factory
     {
         $scheduled_date = $this->faker->dateTimeBetween('-2 years', 'now', 'Asia/Tokyo');
         $set_student_id = Student::select('id')->inRandomOrder()->first()->id;
+        $titles = ['1学期中間試験', '1学期期末試験', '2学期中間試験', '2学期期末試験', '学年末試験', '○○模試'];
+        $set_title = $titles[array_rand($titles, 1)];
+
         return [
             'student_id' => $set_student_id,
-            'title' => $this->faker->text(16),
+            'title' => $set_title,
             'start_date' => $scheduled_date->format('Y-m-d'),
             'end_date' => $scheduled_date->modify(strval(random_int(0,5)).'day')->format('Y-m-d'),
         ];
